@@ -1,0 +1,26 @@
+{
+  "configurations": [
+    {
+      "type": "pwa-msedge",
+      "name": "Launch Microsoft Edge",
+      "request": "launch",
+      "runtimeArgs": ["--remote-debugging-port=9222"],
+      "url": "http://localhost:5173", // 修改为你的项目地址
+      "webRoot": "${workspaceFolder}/src", // 指定项目的根目录
+      "presentation": {
+        "hidden": false
+      }
+    },
+    {
+      "type": "pwa-msedge",
+      "name": "Launch Microsoft Edge in headless mode",
+      "request": "launch",
+      "runtimeArgs": ["--headless", "--remote-debugging-port=9222"],
+      "url": "http://localhost:5173", // 修改为你的项目地址
+      "webRoot": "${workspaceFolder}/src",
+      "presentation": {
+        "hidden": false
+      }
+    }
+  ]
+}

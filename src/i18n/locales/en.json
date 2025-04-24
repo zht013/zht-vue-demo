@@ -1,0 +1,11 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About"
+  },
+  "messages": {
+    "about": "About Us",
+    "documentation": "Documentation",
+    "welcome": "Welcome to our application!"
+  }
+}

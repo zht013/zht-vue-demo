@@ -1,0 +1,11 @@
+{
+  "navigation": {
+    "home": "首页",
+    "about": "关于"
+  },
+  "messages": {
+    "about": "关于我们",
+    "documentation": "文档",
+    "welcome": "欢迎使用我们的应用程序！"
+  }
+}
