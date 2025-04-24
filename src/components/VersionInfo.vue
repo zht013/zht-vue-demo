@@ -3,17 +3,14 @@ const version = __APP_VERSION__
 const gitHash = __GIT_HASH__
 const buildTime = new Date(__BUILD_TIME__).toLocaleString()
 const env = import.meta.env.MODE
-const isProd = import.meta.env.PROD
 </script>
 
 <template>
   <p>
     <span>Version: {{ version }}</span>
-    <template v-if="!isProd">
-      <span>Commit: {{ gitHash }}</span>
-      <span>Build: {{ buildTime }}</span>
-      <span>Environment: {{ env }}</span>
-    </template>
+    <span>Build: {{ buildTime }}</span>
+    <span>Commit: {{ gitHash }}</span>
+    <span>Environment: {{ env }}</span>
   </p>
 </template>
 

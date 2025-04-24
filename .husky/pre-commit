@@ -1,1 +1,2 @@
+pnpm vue-tsc --noEmit --skipLibCheck
 pnpm exec lint-staged

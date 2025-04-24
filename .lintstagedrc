@@ -1,5 +1,4 @@
 {
-  "*.{js,ts,vue}": ["vue-tsc --noEmit --skipLibCheck --pretty", "eslint --fix", "prettier --write"],
-  "*.{css}": ["prettier --write"],
-  "*.{json,md,html}": ["prettier --write"]
+  "*.{js,ts,vue}": ["eslint --fix", "prettier --write"],
+  "*.{css,json,md,html}": ["prettier --write"]
 }
