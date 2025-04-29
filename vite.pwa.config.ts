@@ -1,3 +1,4 @@
+import { Plugin } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 // /**
@@ -22,7 +23,7 @@ import { VitePWA } from 'vite-plugin-pwa'
  * @param isDev 是否是开发环境
  * @returns
  */
-export default function (isDev: boolean) {
+export default function (isDev: boolean): Plugin[] {
   return VitePWA({
     strategies: 'injectManifest',
     srcDir: 'src',

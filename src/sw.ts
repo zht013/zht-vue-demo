@@ -11,6 +11,8 @@ import { ExpirationPlugin } from 'workbox-expiration'
 
 declare let self: ServiceWorkerGlobalScope
 
+const isDev = import.meta.env.DEV
+
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting()
@@ -34,7 +36,7 @@ let allowlist: RegExp[] | undefined
 // 这意味着在开发模式下，只有根路径的请求会被 Service Worker 处理
 // 其他路径的请求将不会被 Service Worker 缓存
 // 这通常用于调试和开发阶段，以避免 Service Worker 干扰开发过程
-if (import.meta.env.DEV) {
+if (isDev) {
   allowlist = [/^\/$/]
 }
 
@@ -49,50 +51,52 @@ if (import.meta.env.DEV) {
 // 允许离线工作
 registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html'), { allowlist }))
 
-// 缓存静态资源（CSS、JS），使用 Stale While Revalidate 策略
-registerRoute(
-  ({ request }) => ['style', 'script', 'worker'].includes(request.destination),
-  new StaleWhileRevalidate({
-    cacheName: 'static-resources',
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 100,
-        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 天
-      }),
-    ],
-  }),
-)
+if (!isDev) {
+  // 缓存静态资源（CSS、JS），使用 Stale While Revalidate 策略
+  registerRoute(
+    ({ request }) => ['style', 'script', 'worker'].includes(request.destination),
+    new StaleWhileRevalidate({
+      cacheName: 'static-resources',
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 100,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 天
+        }),
+      ],
+    }),
+  )
 
-// 动态缓存图片，使用 CacheFirst 策略
-registerRoute(
-  ({ request }) => request.destination === 'image',
-  new CacheFirst({
-    cacheName: 'image-cache',
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 50,
-        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 天
-      }),
-    ],
-  }),
-)
+  // 动态缓存图片，使用 CacheFirst 策略
+  registerRoute(
+    ({ request }) => request.destination === 'image',
+    new CacheFirst({
+      cacheName: 'image-cache',
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 50,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 天
+        }),
+      ],
+    }),
+  )
 
-// 动态缓存 API 请求，使用 NetworkFirst 策略
-registerRoute(
-  ({ url }) => url.pathname.startsWith('/api/'),
-  new NetworkFirst({
-    cacheName: 'api-cache',
-    networkTimeoutSeconds: 10,
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 100,
-        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 天
-      }),
-    ],
-  }),
-)
+  // 动态缓存 API 请求，使用 NetworkFirst 策略
+  registerRoute(
+    ({ url }) => url.pathname.startsWith('/api/'),
+    new NetworkFirst({
+      cacheName: 'api-cache',
+      networkTimeoutSeconds: 10,
+      plugins: [
+        new ExpirationPlugin({
+          maxEntries: 100,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 天
+        }),
+      ],
+    }),
+  )
+}
 
-if (import.meta.env.DEV) {
+if (isDev) {
   self.skipWaiting()
   clientsClaim()
 }

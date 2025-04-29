@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, type RouteLocationNormalized } from 'vue-router'
 import { defaultLocale, isLocaleSupported, setLocale, type SupportedLocale } from '@/i18n'
-import HomeView from '../views/HomeView.vue'
-import LayoutControllerView from '@/views/layouts/LayoutControllerView.vue'
+import appLoadingBar from '@/helpers/AppLoadingBar'
+import DefaultLayoutView from '@/views/layouts/DefaultLayoutView.vue'
 
 /**
  * 删除当前路由的查询参数
@@ -33,7 +33,8 @@ const router = createRouter({
   routes: [
     {
       path: '/:locale?',
-      component: LayoutControllerView,
+      name: 'layout-controller',
+      component: DefaultLayoutView,
       beforeEnter: async (to) => {
         // 如果没有传入语言参数，则使用浏览器语言或默认语言
         const locale = to.params.locale || navigator.language || defaultLocale
@@ -47,15 +48,12 @@ const router = createRouter({
         {
           path: '',
           name: 'home',
-          component: HomeView,
+          component: () => import('@/views/HomeView.vue'),
         },
         {
           path: 'about',
           name: 'about',
-          // route level code-splitting
-          // this generates a separate chunk (About.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
-          component: () => import('../views/AboutView.vue'),
+          component: () => import('@/views/AboutView.vue'),
         },
       ],
     },
@@ -68,6 +66,25 @@ const router = createRouter({
       },
     },
   ],
+})
+
+router.beforeEach((to, from) => {
+  // 导航时显示加载条
+  if (!from || to.path !== from.path) {
+    appLoadingBar.start()
+  }
+})
+
+router.afterEach((to, from) => {
+  // 导航完成后隐藏加载条
+  if (!from || to.path !== from.path) {
+    appLoadingBar.finish()
+  }
+})
+
+router.onError(() => {
+  // 导航错误时加载条
+  appLoadingBar.error()
 })
 
 export default router

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { trimEnd } from '@/helpers/string'
+import { trimEnd } from '@/utils/string'
 import type {
   RouteLocationRaw,
   RouteLocationAsPathGeneric,

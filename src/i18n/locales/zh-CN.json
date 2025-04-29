@@ -1,11 +1,11 @@
 {
-  "navigation": {
+  "title": {
+    "language": "语言",
+    "version": "版本",
+    "settings": "设置"
+  },
+  "label": {
     "home": "首页",
     "about": "关于"
-  },
-  "messages": {
-    "about": "关于我们",
-    "documentation": "文档",
-    "welcome": "欢迎使用我们的应用程序！"
   }
 }

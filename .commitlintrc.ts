@@ -21,13 +21,9 @@ const Configuration: UserConfig = {
         'revert', // 回滚到上一个版本
         'build', // 编译相关的修改，例如发布版本、对项目构建或者依赖的改动
         'ci', // 持续集成修改
-        'wip', // 开发中
         'merge', // 合并分支
         'config', // 配置文件修改
         'release', // 发布版本
-        'security', // 安全相关
-        'workflow', // 工作流相关
-        'types', // 类型定义文件修改
         'translation', // 国际化相关
         'rename', // 重命名
         'deprecate', // 弃用

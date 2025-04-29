@@ -1,14 +1,24 @@
 import { createI18n } from 'vue-i18n'
 import zhCN from './locales/zh-CN.json'
+import {
+  zhCN as naiveZhCN,
+  enUS as naiveEnUS,
+  dateZhCN as naiveDateZhCN,
+  dateEnUS as naiveDateEnUS,
+} from 'naive-ui'
 
 export const supportedLocales = [
   {
     name: '简体中文',
     code: 'zh-CN',
+    naiveLocale: naiveZhCN,
+    naiveDateLocale: naiveDateZhCN,
   },
   {
     name: 'English',
-    code: 'en',
+    code: 'en-US',
+    naiveLocale: naiveEnUS,
+    naiveDateLocale: naiveDateEnUS,
   },
 ] as const
 

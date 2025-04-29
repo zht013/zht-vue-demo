@@ -26,9 +26,8 @@ useRegisterSW({
 })
 
 const app = createApp(App)
-
 app.use(createPinia())
-app.use(router)
 app.use(i18n)
+app.use(router)
 
 app.mount('#app')

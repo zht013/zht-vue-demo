@@ -9,16 +9,16 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppRouterLink: typeof import('./components/AppRouterLink.vue')['default']
-    HelloWorld: typeof import('./components/HelloWorld.vue')['default']
-    IconCustomCommunity: typeof import('~icons/custom/community')['default']
-    IconCustomDocumentation: typeof import('~icons/custom/documentation')['default']
-    IconCustomEcosystem: typeof import('~icons/custom/ecosystem')['default']
-    IconCustomSupport: typeof import('~icons/custom/support')['default']
-    IconCustomTooling: typeof import('~icons/custom/tooling')['default']
+    AppSettings: typeof import('./components/AppSettings.vue')['default']
+    IconIonEarthOutline: typeof import('~icons/ion/earth-outline')['default']
+    IconIonInformationCircleOutline: typeof import('~icons/ion/information-circle-outline')['default']
+    IconIonLanguage: typeof import('~icons/ion/language')['default']
+    IconIonLogoGithub: typeof import('~icons/ion/logo-github')['default']
+    IconIonSettingsOutline: typeof import('~icons/ion/settings-outline')['default']
+    LanguageSelector: typeof import('./components/LanguageSelector.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TheWelcome: typeof import('./components/TheWelcome.vue')['default']
+    ToolBar: typeof import('./components/ToolBar.vue')['default']
     VersionInfo: typeof import('./components/VersionInfo.vue')['default']
-    WelcomeItem: typeof import('./components/WelcomeItem.vue')['default']
   }
 }

@@ -1,0 +1,11 @@
+{
+  "title": {
+    "language": "Language",
+    "version": "Version",
+    "settings": "Settings"
+  },
+  "label": {
+    "home": "Home",
+    "about": "About"
+  }
+}

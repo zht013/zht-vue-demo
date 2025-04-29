@@ -7,22 +7,15 @@ const env = import.meta.env.MODE
 
 <template>
   <p>
-    <span>Version: {{ version }}</span>
-    <span>Build: {{ buildTime }}</span>
-    <span>Commit: {{ gitHash }}</span>
-    <span>Environment: {{ env }}</span>
+    <span>{{ env }}</span>
+    <span>V{{ version }}</span>
+    <span>{{ gitHash }}</span>
+    <span>{{ buildTime }}</span>
   </p>
 </template>
 
 <style scoped>
-p {
-  font-size: 0.8rem;
-  color: var(--color-text);
-  text-align: center;
-  margin-top: 1rem;
-
-  span {
-    margin-left: 0.5rem;
-  }
+span:not(:first-child) {
+  margin-left: 0.8rem;
 }
 </style>
