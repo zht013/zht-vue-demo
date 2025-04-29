@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/zht013/zht-vue-demo/compare/v1.0.0...v1.0.1) (2025-04-29)
+
+
+### Bug Fixes
+
+* fix the test issue ([5f75ecf](https://github.com/zht013/zht-vue-demo/commit/5f75ecfb71575b75b77ca754c8c44996b3ce0d2e))
+
 ## 1.0.0 (2025-04-24)
 
 ### Bug Fixes
