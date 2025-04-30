@@ -15,7 +15,16 @@ const isDev = import.meta.env.DEV
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
+    // 这里的 skipWaiting() 是 Workbox 提供的一个函数，用于跳过等待状态
+    // 这意味着在 Service Worker 安装后，会立即激活新的 Service Worker
+    // 而不是等到所有的页面都关闭后才激活新的 Service Worker
+    // 这通常用于在开发模式下，或者在需要立即更新 Service Worker 时使用
     self.skipWaiting()
+    // 这里的 clientsClaim() 是 Workbox 提供的一个函数，用于在 Service Worker 激活时立即控制所有客户端
+    // 这意味着在 Service Worker 激活后，所有的页面都会立即使用新的 Service Worker
+    // 而不是等到页面刷新后才使用新的 Service Worker
+    // 这通常用于在开发模式下，或者在需要立即更新 Service Worker 时使用
+    clientsClaim()
   }
 })
 

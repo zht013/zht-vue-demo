@@ -2,6 +2,7 @@ import { createDiscreteApi, type NotificationApi, type NotificationOptions } fro
 
 class AppNotification {
   private _notification: NotificationApi
+  private _defaultDuration = 4000
 
   constructor() {
     this._notification = createDiscreteApi(['notification']).notification
@@ -11,38 +12,38 @@ class AppNotification {
     return this._notification
   }
 
-  info(title: string, content: string, options?: Omit<NotificationOptions, 'type'>) {
+  info(content: string, options?: Omit<NotificationOptions, 'type'>) {
     this._notification.info({
-      title,
       content,
-      duration: 5,
+      keepAliveOnHover: true,
+      duration: this._defaultDuration,
       ...options,
     })
   }
 
-  error(title: string, content: string, options?: Omit<NotificationOptions, 'type'>) {
+  error(content: string, options?: Omit<NotificationOptions, 'type'>) {
     this._notification.error({
-      title,
       content,
-      duration: 5,
+      keepAliveOnHover: true,
+      duration: this._defaultDuration,
       ...options,
     })
   }
 
-  success(title: string, content: string, options?: Omit<NotificationOptions, 'type'>) {
+  success(content: string, options?: Omit<NotificationOptions, 'type'>) {
     this._notification.success({
-      title,
       content,
-      duration: 5,
+      keepAliveOnHover: true,
+      duration: this._defaultDuration,
       ...options,
     })
   }
 
-  warning(title: string, content: string, options?: Omit<NotificationOptions, 'type'>) {
+  warning(content: string, options?: Omit<NotificationOptions, 'type'>) {
     this._notification.warning({
-      title,
       content,
-      duration: 5,
+      keepAliveOnHover: true,
+      duration: this._defaultDuration,
       ...options,
     })
   }
