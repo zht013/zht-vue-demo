@@ -20,18 +20,18 @@ const Configuration: UserConfig = {
         'chore', // 其他修改, 比如改变构建流程、或者增加依赖库、工具等
         'revert', // 回滚到上一个版本
         'build', // 编译相关的修改，例如发布版本、对项目构建或者依赖的改动
-        'ci', // 持续集成修改
+        // 'ci', // 持续集成修改
         'merge', // 合并分支
-        'config', // 配置文件修改
-        'release', // 发布版本
-        'translation', // 国际化相关
-        'rename', // 重命名
-        'deprecate', // 弃用
-        'upgrade', // 升级
-        'downgrade', // 降级
-        'hotfix', // 紧急修复
-        'build(deps)', // 依赖更新
-        'build(deps-dev)', // 开发依赖更新
+        // 'config', // 配置文件修改
+        // 'release', // 发布版本
+        // 'translation', // 国际化相关
+        // 'rename', // 重命名
+        // 'deprecate', // 弃用
+        // 'upgrade', // 升级
+        // 'downgrade', // 降级
+        // 'hotfix', // 紧急修复
+        // 'build(deps)', // 依赖更新
+        // 'build(deps-dev)', // 开发依赖更新
         'init', // 初始化
       ],
     ],

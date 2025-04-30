@@ -7,8 +7,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
-    "build:staging": "run-p type-check \"build-staging-only {@}\" --",
+    "build": "run-s \"build-only {@}\" type-check --",
+    "build:staging": "run-s \"build-staging-only {@}\" type-check --",
     "preview": "vite preview",
     "test:unit": "vitest",
     "test:e2e": "playwright test",

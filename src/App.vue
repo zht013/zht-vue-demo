@@ -8,9 +8,9 @@ import appDialog from './helpers/AppDialog'
 
 const { updateServiceWorker } = useRegisterSW({
   immediate: true,
-  // onRegisteredSW(swScriptUrl: string) {
-  //   console.info('Service Worker 已注册', swScriptUrl)
-  // },
+  onRegisteredSW(swScriptUrl: string) {
+    console.info('Service Worker 已注册', swScriptUrl)
+  },
   onOfflineReady() {
     appNotification.info('应用已准备好离线使用')
   },
