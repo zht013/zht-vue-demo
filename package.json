@@ -1,6 +1,6 @@
 {
   "name": "zht-vue-demo",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "license": "MIT",
   "description": "A Vue 3 + Vite 4 + TypeScript + Pinia + Naive UI + Playwright + Vitest + ESLint + Prettier + Commitlint + Husky + Vercel demo project",
   "private": true,
