@@ -23,8 +23,8 @@ async function changeLocale() {
 
 <template>
   <NPopselect :options="options" v-model:value="locale" @update:value="changeLocale">
-    <NButton quaternary size="medium">
-      <NIcon size="2rem" :title="t('title.language')">
+    <NButton quaternary size="medium" :title="t('title.language')">
+      <NIcon size="2rem">
         <IconIonLanguage />
       </NIcon>
     </NButton>

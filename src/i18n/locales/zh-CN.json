@@ -2,10 +2,14 @@
   "title": {
     "language": "语言",
     "version": "版本",
-    "settings": "设置"
+    "settings": "设置",
+    "login": "登录"
   },
-  "label": {
-    "home": "首页",
-    "about": "关于"
+  "nav": {
+    "app-home": "首页",
+    "d3": "D3JS",
+    "three": "ThreeJS",
+    "echarts": "Echarts",
+    "dvProject": "可视化项目"
   }
 }

@@ -1,50 +1,51 @@
 <script setup lang="ts">
 import { trimEnd } from '@/utils/string'
 import type {
-  RouteLocationRaw,
   RouteLocationAsPathGeneric,
   RouteLocationAsRelativeGeneric,
+  RouterLinkProps,
 } from 'vue-router'
 
-defineOptions({
-  inheritAttrs: false,
-})
+// defineOptions({
+//   inheritAttrs: false,
+// })
 
-const { to } = defineProps<{
-  to: RouteLocationRaw // 支持字符串或对象形式的路由目标
-}>()
+const props = defineProps<RouterLinkProps>()
 
-// 获取当前路由
 const route = useRoute()
+const newProps = {
+  ...props,
+  to: resetTo(),
+}
 
 // 计算目标路径，自动包含 locale 参数
-const computedTo = computed(() => {
+function resetTo() {
   const locale = route.params.locale as string | undefined // 获取当前路由的 locale 参数
-  if (typeof to === 'string') {
-    return locale ? trimEnd(`/${locale}${to}`, '\/') : to
-  } else if (typeof to === 'object' && (to as RouteLocationAsPathGeneric)) {
+  if (typeof props.to === 'string') {
+    return locale ? trimEnd(`/${locale}${props.to}`, '\/') : props.to
+  } else if (typeof props.to === 'object' && (props.to as RouteLocationAsPathGeneric)) {
     return {
-      ...to,
+      ...props.to,
       path: locale
-        ? trimEnd(`/${locale}${(to as RouteLocationAsPathGeneric).path}`, '\/')
-        : (to as RouteLocationAsPathGeneric).path,
+        ? trimEnd(`/${locale}${(props.to as RouteLocationAsPathGeneric).path}`, '\/')
+        : (props.to as RouteLocationAsPathGeneric).path,
     }
-  } else if (typeof to === 'object' && (to as RouteLocationAsRelativeGeneric)) {
+  } else if (typeof props.to === 'object' && (props.to as RouteLocationAsRelativeGeneric)) {
     return {
-      ...to,
+      ...props.to,
       params: {
-        ...(to as RouteLocationAsRelativeGeneric).params,
-        locale: locale || (to as RouteLocationAsRelativeGeneric)?.params?.locale, // 确保 locale 参数被包含
+        ...(props.to as RouteLocationAsRelativeGeneric).params,
+        locale: locale || (props.to as RouteLocationAsRelativeGeneric)?.params?.locale, // 确保 locale 参数被包含
       },
     }
   }
 
-  return to
-})
+  return props.to
+}
 </script>
 
 <template>
-  <RouterLink :to="computedTo" v-bind="$attrs">
-    <slot />
+  <RouterLink v-bind="newProps" v-slot="slotProps">
+    <slot v-bind="slotProps" />
   </RouterLink>
 </template>

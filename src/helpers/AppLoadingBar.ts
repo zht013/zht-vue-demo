@@ -1,14 +1,8 @@
-import { createDiscreteApi, type LoadingBarApi } from 'naive-ui'
+import naiveApi from './NaiveApi'
 
 class AppLoadingBar {
-  private _loadingBar: LoadingBarApi
-
-  constructor() {
-    this._loadingBar = createDiscreteApi(['loadingBar']).loadingBar
-  }
-
   get LoadingBar() {
-    return this._loadingBar
+    return naiveApi.LoadingBar
   }
 
   /**

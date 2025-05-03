@@ -19,7 +19,7 @@ export default function (): Plugin & {
   return Components({
     dirs: ['src/components'], // 自动扫描的组件目录
     extensions: ['vue'],
-    dts: 'src/components.d.ts', // 生成类型声明文件
+    dts: 'src/types/components.d.ts', // 生成类型声明文件
     resolvers: [
       // NaiveUiResolver(), // 自动导入 Naive UI 组件
       IconsResolver({

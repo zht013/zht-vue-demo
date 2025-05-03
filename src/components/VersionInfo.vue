@@ -8,7 +8,7 @@ const env = import.meta.env.MODE
 <template>
   <p>
     <span>{{ env }}</span>
-    <span>V{{ version }}</span>
+    <span>v{{ version }}</span>
     <span>{{ gitHash }}</span>
     <span>{{ buildTime }}</span>
   </p>

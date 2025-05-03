@@ -3,8 +3,8 @@ import themeOverrides from './naive-overrides'
 const appLightTheme = themeOverrides
 appLightTheme.common = {
   ...appLightTheme.common,
-  bgColor: '#f7f7f7',
-  boxShadow4: '1px 1px 5px rgba(0, 0, 0, 0.3)',
+  bgColor: 'rgba(247, 247, 247, .6)',
+  boxShadow4: '1px 1px 4px rgba(110, 110, 110, 0.3)',
 }
 
 export default appLightTheme

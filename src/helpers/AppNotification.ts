@@ -1,19 +1,15 @@
-import { createDiscreteApi, type NotificationApi, type NotificationOptions } from 'naive-ui'
+import { type NotificationOptions } from 'naive-ui'
+import naiveApi from './NaiveApi'
 
 class AppNotification {
-  private _notification: NotificationApi
   private _defaultDuration = 4000
 
-  constructor() {
-    this._notification = createDiscreteApi(['notification']).notification
-  }
-
-  get notification() {
-    return this._notification
+  get Notification() {
+    return naiveApi.Notification
   }
 
   info(content: string, options?: Omit<NotificationOptions, 'type'>) {
-    this._notification.info({
+    this.Notification.info({
       content,
       keepAliveOnHover: true,
       duration: this._defaultDuration,
@@ -22,7 +18,7 @@ class AppNotification {
   }
 
   error(content: string, options?: Omit<NotificationOptions, 'type'>) {
-    this._notification.error({
+    this.Notification.error({
       content,
       keepAliveOnHover: true,
       duration: this._defaultDuration,
@@ -31,7 +27,7 @@ class AppNotification {
   }
 
   success(content: string, options?: Omit<NotificationOptions, 'type'>) {
-    this._notification.success({
+    this.Notification.success({
       content,
       keepAliveOnHover: true,
       duration: this._defaultDuration,
@@ -40,7 +36,7 @@ class AppNotification {
   }
 
   warning(content: string, options?: Omit<NotificationOptions, 'type'>) {
-    this._notification.warning({
+    this.Notification.warning({
       content,
       keepAliveOnHover: true,
       duration: this._defaultDuration,
@@ -49,7 +45,7 @@ class AppNotification {
   }
 
   destroyAll() {
-    this._notification.destroyAll()
+    this.Notification.destroyAll()
   }
 }
 

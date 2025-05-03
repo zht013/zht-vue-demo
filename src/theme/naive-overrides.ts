@@ -47,6 +47,9 @@ const themeOverrides: GlobalThemeOverrides = {
     iconSizeLarge: '2rem',
     rippleDuration: '.6s',
   },
+  Menu: {
+    itemHeight: '3.4rem',
+  },
 }
 
 export default themeOverrides

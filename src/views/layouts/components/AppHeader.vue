@@ -1,6 +1,32 @@
 <script setup lang="ts">
 import useAppI18n from '@/composables/useAppI18n'
-import { NButton, NDrawer, NIcon, NDrawerContent } from 'naive-ui'
+import { useNavStore } from '@/stores/nav'
+import type { AppMenu } from '@/types'
+import { NButton, NDrawer, NIcon, NDrawerContent, type MenuOption, NMenu } from 'naive-ui'
+import { RouterLink } from 'vue-router'
+
+const { menus = [] } = defineProps<{
+  menus?: AppMenu[]
+}>()
+const { currentMenu } = useNavStore()
+const menuOptions = menus.map<MenuOption>(
+  (m) =>
+    ({
+      key: m.id,
+      label: () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              name: m.routeName,
+            },
+          },
+          {
+            default: () => m.name(),
+          },
+        ),
+    }) as MenuOption,
+)
 
 const { t } = useAppI18n()
 const githubUrl = import.meta.env.VITE_GITHUB_URL
@@ -14,10 +40,12 @@ function showSettings() {
 </script>
 
 <template>
-  <div class="toolbar">
+  <div class="header">
+    <NIcon size="2.2rem">
+      <IconCustomLogo />
+    </NIcon>
     <nav class="navbar">
-      <AppRouterLink to="/home">Home</AppRouterLink>
-      <AppRouterLink to="/about">About</AppRouterLink>
+      <NMenu :options="menuOptions" mode="horizontal" :default-value="currentMenu?.id" />
     </nav>
 
     <div class="tools">
@@ -52,8 +80,8 @@ function showSettings() {
         </NIcon>
       </NButton>
 
-      <NButton quaternary size="medium" @click="showSettings">
-        <NIcon size="2.2rem" :title="t('title.settings')">
+      <NButton quaternary size="medium" :title="t('title.settings')" @click="showSettings">
+        <NIcon size="2.2rem">
           <IconIonSettingsOutline />
         </NIcon>
       </NButton>
@@ -67,18 +95,24 @@ function showSettings() {
           </template>
         </NDrawerContent>
       </NDrawer>
+
+      <NButton quaternary size="medium" :title="t('title.login')">
+        <NIcon size="2.4rem">
+          <IconIonLogInOutline />
+        </NIcon>
+      </NButton>
     </div>
   </div>
 </template>
 
 <style scoped>
-.toolbar {
+.header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-  background-color: var(--n-bg-color);
-  box-shadow: var(--n-box-shadow4);
+  box-shadow: var(--app-box-shadow4);
+  backdrop-filter: blur(2px);
+  background-image: radial-gradient(transparent 0.1rem, var(--app-bg-color) 0.1rem);
+  background-size: 0.4rem 0.4rem;
 }
 
 .navbar {
@@ -90,6 +124,7 @@ function showSettings() {
 .tools {
   display: flex;
   align-items: center;
+  margin-left: auto;
 }
 
 .version-info {

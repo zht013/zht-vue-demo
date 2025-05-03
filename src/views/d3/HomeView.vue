@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>Home</div>
+  <div>D3.js</div>
 </template>
 
 <style scoped></style>

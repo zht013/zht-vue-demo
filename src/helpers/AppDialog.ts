@@ -1,14 +1,9 @@
-import { createDiscreteApi, type DialogApi, type DialogOptions } from 'naive-ui'
+import { type DialogOptions } from 'naive-ui'
+import naiveApi from './NaiveApi'
 
 class AppDialog {
-  private _dialog: DialogApi
-
-  constructor() {
-    this._dialog = createDiscreteApi(['dialog']).dialog
-  }
-
   get Dialog() {
-    return this._dialog
+    return naiveApi.Dialog
   }
 
   warning(content: string, options?: DialogOptions) {

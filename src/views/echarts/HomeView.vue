@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>Home</div>
+  <div>ECharts</div>
 </template>
 
 <style scoped></style>

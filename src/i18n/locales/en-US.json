@@ -2,10 +2,14 @@
   "title": {
     "language": "Language",
     "version": "Version",
-    "settings": "Settings"
+    "settings": "Settings",
+    "login": "Login"
   },
-  "label": {
-    "home": "Home",
-    "about": "About"
+  "nav": {
+    "app-home": "Home",
+    "d3": "D3JS",
+    "three": "ThreeJS",
+    "echarts": "Echarts",
+    "dvProject": "Visualization Project"
   }
 }

@@ -1,17 +1,12 @@
-import { createDiscreteApi, type MessageApi, type MessageOptions } from 'naive-ui'
+import { type MessageOptions } from 'naive-ui'
 import type { VNodeChild } from 'vue'
+import naiveApi from './NaiveApi'
 
 type ContentType = string | (() => VNodeChild)
 
 class AppMessage {
-  private _message: MessageApi
-
-  constructor() {
-    this._message = createDiscreteApi(['message']).message
-  }
-
   get Message() {
-    return this._message
+    return naiveApi.Message
   }
 
   info(content: ContentType, options?: MessageOptions) {

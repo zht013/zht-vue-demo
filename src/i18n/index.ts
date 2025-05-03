@@ -23,8 +23,8 @@ export const supportedLocales = [
 ] as const
 
 export type SupportedLocale = (typeof supportedLocales)[number]['code']
-export const defaultLocale = supportedLocales[0].code // 默认语言
 export type MessageSchema = typeof zhCN
+export const defaultLocale = import.meta.env.VITE_DEFAULT_LOCALE // 默认语言
 // createI18n<{ message: MessageSchema }, SupportedLocale>
 const i18n = createI18n({
   legacy: false, // 使用 Composition API 模式

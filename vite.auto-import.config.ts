@@ -18,6 +18,6 @@ export default function () {
         'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar'],
       },
     ],
-    dts: 'src/auto-imports.d.ts', // 生成类型声明文件
+    dts: 'src/types/auto-imports.d.ts', // 生成类型声明文件
   })
 }
