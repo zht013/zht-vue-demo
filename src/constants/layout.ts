@@ -1,6 +1,6 @@
-import { LayoutType, type LayoutOptions } from '@/types'
+import { LayoutType, type LayoutOption } from '@/types'
 
-const layoutMap: Record<LayoutType, LayoutOptions> = {
+const layoutMap: Record<LayoutType, LayoutOption> = {
   [LayoutType.default]: {
     name: '默认布局',
     type: LayoutType.default,

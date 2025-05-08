@@ -2,12 +2,91 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
+    <meta name="author" content="Zht" />
+    <meta
+      name="description"
+      content="The data visualization project, use vue3 + vue router + pinia + vite + PWA + echarts + d3.js + three.js technologies."
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>%VITE_APP_TITLE% (%MODE%)</title>
+
+    <!-- 1. 预连接 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- 2. 预加载关键字重 -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300..600&display=swap"
+      as="style"
+    />
+
+    <!-- 3. 预加载关键字体文件（WOFF2） -->
+    <link
+      rel="preload"
+      href="https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7SUc.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- 
+    4. 异步加载字体 CSS
+    media="print" + onload：将 CSS 标记为低优先级，加载完成后切换为全媒体类型，实现异步非阻塞加载。
+  -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300..600&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+
+    <!-- 5. 回退（如果 JS 禁用） -->
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300..600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <style>
+      #app-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        border-top-color: #09f;
+        animation:
+          app-spin 1s ease-in-out infinite,
+          spin-opacity 100ms ease-in 300ms forwards;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-left: -20px;
+        margin-top: -20px;
+        z-index: -1;
+        opacity: 0;
+      }
+
+      @keyframes spin-opacity {
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes app-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
   </head>
 
   <body>
     <div id="app"></div>
+
+    <div id="app-spinner"></div>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

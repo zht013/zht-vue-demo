@@ -6,10 +6,28 @@
     "login": "Login"
   },
   "nav": {
-    "app-home": "Home",
-    "d3": "D3JS",
-    "three": "ThreeJS",
-    "echarts": "Echarts",
-    "dvProject": "Visualization Project"
+    "vue3": {
+      "label": "Home",
+      "introduction": "Introduction",
+      "animation": {
+        "label": "Animation",
+        "parallax": "Parallax Effect"
+      }
+    },
+    "d3": {
+      "label": "D3JS",
+      "introduction": "Introduction"
+    },
+    "three": {
+      "label": "ThreeJS",
+      "introduction": "Introduction"
+    },
+    "echarts": {
+      "label": "Echarts",
+      "introduction": "Introduction"
+    },
+    "dvProject": {
+      "label": "Visualization Project"
+    }
   }
 }

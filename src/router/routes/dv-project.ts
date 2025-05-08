@@ -8,7 +8,7 @@ export default {
   name: RouteName.DV_PROJECT.HOME,
   meta: {
     index: RouteIndex.dvProject,
-    name: () => i18n.global.t('nav.dvProject'),
+    label: () => i18n.global.t('nav.dvProject.label'),
     isMenu: true,
     layout: LayoutType.dvProject,
   },

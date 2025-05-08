@@ -51,7 +51,6 @@ const router = createRouter({
   routes: [
     {
       path: `/:locale(${supportedLocales.map((locale) => locale.code).join('|')})?`,
-      name: 'layout-controller',
       component: LayoutControllerView,
       beforeEnter: async (to) => {
         // 如果没有传入语言参数，则使用浏览器语言或默认语言
@@ -90,7 +89,7 @@ router.afterEach((to, from) => {
     appLoadingBar.finish()
   }
 
-  document.title = `${to.meta?.name ? to.meta.name() + ' - ' : ''}${import.meta.env.VITE_APP_TITLE}`
+  document.title = `${to.meta?.label ? to.meta.label() + ' - ' : ''}${import.meta.env.VITE_APP_TITLE}`
 })
 
 router.onError(() => {

@@ -10,13 +10,13 @@ declare module 'vue-router' {
    */
   interface RouteMeta {
     /** 唯一标识 */
-    id?: string
+    key?: string | number
     /**序号 */
     index?: RouteIndex
     /** 是否需要授权 */
     requireAuth?: boolean
     /** 菜单名称 */
-    name?: () => string
+    label?: () => string
     /** 页面标题 */
     title?: () => string
     /** 图标 */

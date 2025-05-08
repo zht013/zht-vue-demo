@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useAppI18n from '@/composables/useAppI18n'
+import { useAppI18n } from '@/composables/appI18n'
 import { NButton, NIcon, NPopselect } from 'naive-ui'
 import type { RouteLocationRaw } from 'vue-router'
 

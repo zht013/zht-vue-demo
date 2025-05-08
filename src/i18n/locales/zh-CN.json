@@ -6,10 +6,28 @@
     "login": "登录"
   },
   "nav": {
-    "app-home": "首页",
-    "d3": "D3JS",
-    "three": "ThreeJS",
-    "echarts": "Echarts",
-    "dvProject": "可视化项目"
+    "vue3": {
+      "label": "首页",
+      "introduction": "介绍",
+      "animation": {
+        "label": "动画效果",
+        "parallax": "视差效果"
+      }
+    },
+    "d3": {
+      "label": "D3JS",
+      "introduction": "介绍"
+    },
+    "three": {
+      "label": "ThreeJS",
+      "introduction": "介绍"
+    },
+    "echarts": {
+      "label": "Echarts",
+      "introduction": "介绍"
+    },
+    "dvProject": {
+      "label": "可视化项目"
+    }
   }
 }

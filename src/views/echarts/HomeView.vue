@@ -4,4 +4,8 @@
   <div>ECharts</div>
 </template>
 
-<style scoped></style>
+<style scoped>
+div {
+  min-height: 600rem;
+}
+</style>

@@ -8,6 +8,7 @@ import { clientsClaim } from 'workbox-core'
 import { NavigationRoute, registerRoute } from 'workbox-routing'
 import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies'
 import { ExpirationPlugin } from 'workbox-expiration'
+import { CacheableResponsePlugin } from 'workbox-cacheable-response'
 
 declare let self: ServiceWorkerGlobalScope
 
@@ -59,6 +60,40 @@ if (isDev) {
 // 该路由会将所有的导航请求（例如点击链接）重定向到指定的 URL
 // 允许离线工作
 registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html'), { allowlist }))
+
+// 缓存 Google Fonts CSS
+registerRoute(
+  ({ url }) => url.origin === 'https://fonts.googleapis.com',
+  new CacheFirst({
+    cacheName: 'google-fonts-stylesheets',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({
+        maxEntries: 10,
+        maxAgeSeconds: 60 * 60 * 24 * 365 * 2, // 2年
+      }),
+    ],
+  }),
+)
+
+// 缓存 Google Fonts 字体文件
+registerRoute(
+  ({ url }) => url.origin === 'https://fonts.gstatic.com',
+  new CacheFirst({
+    cacheName: 'google-fonts-webfonts',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({
+        maxEntries: 30,
+        maxAgeSeconds: 60 * 60 * 24 * 365 * 2, //2年
+      }),
+    ],
+  }),
+)
 
 if (!isDev) {
   // 缓存静态资源（CSS、JS），使用 Stale While Revalidate 策略

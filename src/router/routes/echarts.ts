@@ -4,33 +4,23 @@ import i18n from '@/i18n'
 
 export default {
   path: 'echarts',
-  name: RouteName.ECHARTS.HOME,
+  name: RouteName.ECHARTS.ROOT,
   meta: {
     index: RouteIndex.echarts,
-    name: () => i18n.global.t('nav.echarts'),
+    label: () => i18n.global.t('nav.echarts.label'),
     isMenu: true,
   },
-  component: () => import('@/views/echarts/HomeView.vue'),
+  redirect: { name: RouteName.ECHARTS.INTRODUCE },
   children: [
     {
-      path: 'test',
-      name: 'test',
+      path: 'introduction',
+      alias: '',
+      name: RouteName.ECHARTS.INTRODUCE,
       meta: {
         isMenu: true,
-        name: () => 'test',
+        label: () => i18n.global.t('nav.echarts.introduction'),
       },
       component: () => import('@/views/echarts/HomeView.vue'),
-      children: [
-        {
-          path: 'test-child',
-          name: 'test-child',
-          meta: {
-            isMenu: true,
-            name: () => 'test-child',
-          },
-          component: () => import('@/views/echarts/HomeView.vue'),
-        },
-      ],
     },
   ],
 } as RouteRecordRaw

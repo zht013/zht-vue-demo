@@ -1,130 +1,88 @@
 <script setup lang="ts">
-import useAppI18n from '@/composables/useAppI18n'
-import { useNavStore } from '@/stores/nav'
-import type { AppMenu } from '@/types'
-import { NButton, NDrawer, NIcon, NDrawerContent, type MenuOption, NMenu } from 'naive-ui'
+import { useAppI18n } from '@/composables/appI18n'
+import { RouteName } from '@/router/constants'
+import { NDrawer, NIcon, NDrawerContent, useThemeVars } from 'naive-ui'
 import { RouterLink } from 'vue-router'
+import { useMenuStore } from '@/stores/menu'
+import { useAppBreakpoints } from '@/composables/appBreakpoints'
+import { useEventBus } from '@vueuse/core'
+import { EventKeys } from '@/constants/keys'
 
-const { menus = [] } = defineProps<{
-  menus?: AppMenu[]
-}>()
-const { currentMenu } = useNavStore()
-const menuOptions = menus.map<MenuOption>(
-  (m) =>
-    ({
-      key: m.id,
-      label: () =>
-        h(
-          RouterLink,
-          {
-            to: {
-              name: m.routeName,
-            },
-          },
-          {
-            default: () => m.name(),
-          },
-        ),
-    }) as MenuOption,
-)
-
+const { menus } = useMenuStore()
 const { t } = useAppI18n()
-const githubUrl = import.meta.env.VITE_GITHUB_URL
-const productionUrl = import.meta.env.VITE_PRODUCTION_URL
-const isDev = import.meta.env.DEV
 const settingsShow = ref(false)
+const AppNav = defineAsyncComponent(() => import('./AppNav.vue'))
+const AppNavMini = defineAsyncComponent(() => import('./AppNavMini.vue'))
+const AppNavMd = defineAsyncComponent(() => import('./AppNavMd.vue'))
 
-function showSettings() {
+const { isTablet, isDesktop } = useAppBreakpoints()
+
+const themeVars = useThemeVars()
+
+useEventBus(EventKeys.showSettings).on(() => {
   settingsShow.value = !settingsShow.value
-}
+})
 </script>
 
 <template>
-  <div class="header">
-    <NIcon size="2.2rem">
-      <IconCustomLogo />
-    </NIcon>
-    <nav class="navbar">
-      <NMenu :options="menuOptions" mode="horizontal" :default-value="currentMenu?.id" />
-    </nav>
+  <header
+    class="header"
+    :style="{
+      '--background-color': themeVars.bgColor,
+      '--border-color': themeVars.borderColor,
+    }"
+  >
+    <RouterLink
+      class="logo"
+      :to="{
+        name: RouteName.VUE3.ROOT,
+      }"
+    >
+      <NIcon size="2.2rem">
+        <IconCustomLogo />
+      </NIcon>
+    </RouterLink>
 
-    <div class="tools">
-      <LanguageSelector />
+    <AppNav v-if="isDesktop" :menus="menus" />
+    <AppNavMd v-else-if="isTablet" :menus="menus" />
+    <AppNavMini v-else :menus="menus" />
 
-      <NButton
-        tag="a"
-        :href="githubUrl"
-        target="_blank"
-        rel="noopener noreferrer"
-        quaternary
-        size="medium"
-        title="GitHub"
-      >
-        <NIcon size="2.2rem">
-          <IconIonLogoGithub />
-        </NIcon>
-      </NButton>
+    <NDrawer v-model:show="settingsShow" default-width="35%" placement="right">
+      <NDrawerContent closable :title="t('title.settings')">
+        <AppSettings />
 
-      <NButton
-        v-if="isDev"
-        tag="a"
-        :href="productionUrl"
-        target="_blank"
-        rel="noopener noreferrer"
-        quaternary
-        size="medium"
-        title="Production"
-      >
-        <NIcon size="2.2rem">
-          <IconIonEarthOutline />
-        </NIcon>
-      </NButton>
-
-      <NButton quaternary size="medium" :title="t('title.settings')" @click="showSettings">
-        <NIcon size="2.2rem">
-          <IconIonSettingsOutline />
-        </NIcon>
-      </NButton>
-
-      <NDrawer v-model:show="settingsShow" default-width="35%" placement="right">
-        <NDrawerContent closable :title="t('title.settings')">
-          <AppSettings />
-
-          <template #footer>
-            <VersionInfo class="version-info" />
-          </template>
-        </NDrawerContent>
-      </NDrawer>
-
-      <NButton quaternary size="medium" :title="t('title.login')">
-        <NIcon size="2.4rem">
-          <IconIonLogInOutline />
-        </NIcon>
-      </NButton>
-    </div>
-  </div>
+        <template #footer>
+          <VersionInfo class="version-info" />
+        </template>
+      </NDrawerContent>
+    </NDrawer>
+  </header>
 </template>
 
 <style scoped>
 .header {
   display: flex;
   align-items: center;
-  box-shadow: var(--app-box-shadow4);
+  padding: 0.4rem 0.6rem 0.4rem 1.4rem;
+  border-bottom: 1px solid var(--border-color);
   backdrop-filter: blur(2px);
-  background-image: radial-gradient(transparent 0.1rem, var(--app-bg-color) 0.1rem);
+  background-image: radial-gradient(transparent 0.1rem, var(--background-color) 0.1rem);
   background-size: 0.4rem 0.4rem;
 }
 
-.navbar {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+.logo {
+  flex-shrink: 0;
+  line-height: 1;
+  filter: hue-rotate(0deg);
+  transition: filter 400ms ease-in;
 }
 
-.tools {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
+.logo:is(:hover, .router-link-active) {
+  filter: hue-rotate(320deg);
+}
+
+.logo.router-link-active:hover {
+  filter: hue-rotate(0deg);
 }
 
 .version-info {

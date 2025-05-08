@@ -7,15 +7,24 @@ export enum RouteIndex {
 }
 
 export const RouteName = {
-  APP_HOME: Symbol(),
+  VUE3: {
+    ROOT: Symbol(),
+    INTRODUCE: Symbol(),
+    ANIMATION: {
+      PARALLAX: Symbol(),
+    },
+  },
   ECHARTS: {
-    HOME: Symbol(),
+    ROOT: Symbol(),
+    INTRODUCE: Symbol(),
   },
   D3: {
-    HOME: Symbol(),
+    ROOT: Symbol(),
+    INTRODUCE: Symbol(),
   },
   THREE: {
-    HOME: Symbol(),
+    ROOT: Symbol(),
+    INTRODUCE: Symbol(),
   },
   DV_PROJECT: {
     HOME: Symbol(),
