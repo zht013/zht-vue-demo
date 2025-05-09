@@ -27,7 +27,6 @@ const themeVars = useThemeVars()
     :style="{
       '--a-text-color': themeVars.textColor1,
       '--a-hover-color': themeVars.primaryColor,
-      backgroundColor: themeVars.bgColor,
     }"
   />
   <RouterView v-else />

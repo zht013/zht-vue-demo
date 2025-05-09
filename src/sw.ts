@@ -61,26 +61,9 @@ if (isDev) {
 // 允许离线工作
 registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html'), { allowlist }))
 
-// 缓存 Google Fonts CSS
+// 缓存 Google Fonts css 和 字体
 registerRoute(
-  ({ url }) => url.origin === 'https://fonts.googleapis.com',
-  new CacheFirst({
-    cacheName: 'google-fonts-stylesheets',
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-      new ExpirationPlugin({
-        maxEntries: 10,
-        maxAgeSeconds: 60 * 60 * 24 * 365 * 2, // 2年
-      }),
-    ],
-  }),
-)
-
-// 缓存 Google Fonts 字体文件
-registerRoute(
-  ({ url }) => url.origin === 'https://fonts.gstatic.com',
+  ({ url }) => /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/.test(url.href),
   new CacheFirst({
     cacheName: 'google-fonts-webfonts',
     plugins: [

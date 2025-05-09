@@ -1,4 +1,7 @@
 {
+  "label": {
+    "menu": "Menu"
+  },
   "title": {
     "language": "Language",
     "version": "Version",

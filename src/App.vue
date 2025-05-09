@@ -103,9 +103,9 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 0.2rem;
-  background-color: rgb(64, 152, 252);
+  background: rgb(64, 152, 252);
   z-index: 10;
-  transform: scaleX(var(--doc-scroll-percentage));
+  transform: scale(var(--doc-scroll-percentage), 1);
   transform-origin: 0;
 }
 </style>

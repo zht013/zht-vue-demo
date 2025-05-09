@@ -49,12 +49,6 @@ body {
   overflow-y: auto;
 }
 
-/* @media (max-width: 768px) {
-  .n-drawer:is(.n-drawer--right-placement, n-drawer--left-placement) {
-    width: 100% !important;
-  }
-} */
-
 /* #region 动画 */
 .default-enter-from {
   opacity: 0;

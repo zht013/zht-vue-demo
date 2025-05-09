@@ -7,5 +7,6 @@ declare module 'naive-ui' {
     boxShadow4?: string
     appHeaderHeight?: string
     appAsideWidth?: string
+    backdropColor?: string
   }
 }

@@ -19,7 +19,9 @@ import { breakpointsMasterCss, useBreakpoints } from '@vueuse/core'
 export function useAppBreakpoints() {
   const breakpoints = useBreakpoints(breakpointsMasterCss)
   const isMobile = breakpoints.smaller('sm')
-  const isTablet = breakpoints.between('sm', 'md')
+  const isTablet = computed(() => {
+    return breakpoints.between('sm', 'md').value || breakpoints.md.value
+  })
   const isDesktop = breakpoints.greater('md')
 
   return {

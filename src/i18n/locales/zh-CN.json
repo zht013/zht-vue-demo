@@ -1,4 +1,7 @@
 {
+  "label": {
+    "menu": "菜单"
+  },
   "title": {
     "language": "语言",
     "version": "版本",
@@ -8,7 +11,7 @@
   "nav": {
     "vue3": {
       "label": "首页",
-      "introduction": "介绍",
+      "introduction": "简介",
       "animation": {
         "label": "动画效果",
         "parallax": "视差效果"
@@ -16,15 +19,15 @@
     },
     "d3": {
       "label": "D3JS",
-      "introduction": "介绍"
+      "introduction": "简介"
     },
     "three": {
       "label": "ThreeJS",
-      "introduction": "介绍"
+      "introduction": "简介"
     },
     "echarts": {
       "label": "Echarts",
-      "introduction": "介绍"
+      "introduction": "简介"
     },
     "dvProject": {
       "label": "可视化项目"

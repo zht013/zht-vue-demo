@@ -1,16 +1,25 @@
 <script setup lang="ts">
-import { useThemeVars } from 'naive-ui'
+import { NDrawer, NDrawerContent, useThemeVars } from 'naive-ui'
 import AppHeader from './components/AppHeader.vue'
-import AppAsideNav from './components/AppAsideNav.vue'
 import { useAppBreakpoints } from '@/composables/appBreakpoints'
+import { useAppI18n } from '@/composables/appI18n'
+import { useEventBus } from '@vueuse/core'
+import { EventKeys } from '@/constants/keys'
+import AppAside from './components/AppAside.vue'
 
 const themeVars = useThemeVars()
-const { isDesktop } = useAppBreakpoints()
-const hideAside = ref(false)
+const { t } = useAppI18n()
 
-function handleAsideToggle() {
-  hideAside.value = !hideAside.value
-}
+const { isDesktop, isTablet } = useAppBreakpoints()
+
+// settings 相关
+const settingsDrawerWidth = computed(() => {
+  return isDesktop.value ? '35%' : isTablet.value ? '50%' : '100%'
+})
+const isShowSettings = ref(false)
+useEventBus(EventKeys.showSettings).on(() => {
+  isShowSettings.value = !isShowSettings.value
+})
 </script>
 
 <template>
@@ -23,22 +32,7 @@ function handleAsideToggle() {
     <AppHeader class="header" />
 
     <div class="main">
-      <div
-        v-if="isDesktop"
-        class="aside-wrap"
-        :class="{ 'hide-aside': hideAside }"
-        :style="{
-          '--aside-width': themeVars.appAsideWidth,
-          '--border-color': themeVars.borderColor,
-          '--bg-color': themeVars.bgColor1,
-        }"
-      >
-        <AppAsideNav class="aside" />
-
-        <button class="toggle-btn" @click="handleAsideToggle">
-          <IconIonChevronForward v-if="hideAside" /> <IconIonChevronBack v-else />
-        </button>
-      </div>
+      <AppAside />
 
       <div
         class="content"
@@ -53,6 +47,16 @@ function handleAsideToggle() {
         </RouterView>
       </div>
     </div>
+
+    <NDrawer v-model:show="isShowSettings" :width="settingsDrawerWidth" placement="right">
+      <NDrawerContent closable :title="t('title.settings')">
+        <AppSettings />
+
+        <template #footer>
+          <VersionInfo class="version-info" />
+        </template>
+      </NDrawerContent>
+    </NDrawer>
   </div>
 </template>
 
@@ -76,63 +80,15 @@ function handleAsideToggle() {
   flex-flow: row wrap;
 }
 
-.aside-wrap {
-  z-index: 2;
-  position: sticky;
-  top: 4.8rem;
-  height: calc(100vh - var(--app-header-height));
-
-  &.hide-aside {
-    & > .aside {
-      margin-left: calc(var(--aside-width) * -1);
-    }
-
-    & > .toggle-btn {
-      transform: translateX(100%) translateY(-100%);
-    }
-  }
-
-  &:hover {
-    & > .toggle-btn {
-      transform: translateX(100%) translateY(-100%);
-    }
-  }
-}
-
-.aside {
-  width: var(--aside-width);
-  position: relative;
-  z-index: 2;
-  height: 100%;
-  border-right: 1px solid var(--border-color);
-  background-color: var(--bg-color);
-  overflow-x: hidden;
-  overflow-y: auto;
-  transition: margin-left 300ms ease-out;
-  margin-left: var(--margin-left);
-}
-
 .content {
   flex: 1;
   padding: 1rem;
-  background-color: var(--bg-color);
+  background: var(--bg-color);
 }
 
-.toggle-btn {
-  z-index: 1;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateX(0) translateY(-100%);
-  margin: 0;
-  padding: 3rem 0.4rem;
-  transition: transform 300ms ease-in 300ms;
-  line-height: 1;
-  border: 1px solid var(--border-color);
-  border-left-width: 0;
-  border-radius: 0 0.4rem 0.4rem 0;
-  background: var(--bg-color);
-  backdrop-filter: blur(5px);
-  cursor: pointer;
+.version-info {
+  opacity: 0.4;
+  flex: 1;
+  text-align: center;
 }
 </style>

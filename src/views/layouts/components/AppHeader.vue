@@ -1,27 +1,21 @@
 <script setup lang="ts">
-import { useAppI18n } from '@/composables/appI18n'
 import { RouteName } from '@/router/constants'
-import { NDrawer, NIcon, NDrawerContent, useThemeVars } from 'naive-ui'
+import { NIcon, NButton, useThemeVars } from 'naive-ui'
 import { RouterLink } from 'vue-router'
-import { useMenuStore } from '@/stores/menu'
+import AppToolBar from './AppToolBar.vue'
 import { useAppBreakpoints } from '@/composables/appBreakpoints'
-import { useEventBus } from '@vueuse/core'
-import { EventKeys } from '@/constants/keys'
+import { useMenusStore } from '@/stores/menu'
+import { useAppI18n } from '@/composables/appI18n'
 
-const { menus } = useMenuStore()
 const { t } = useAppI18n()
-const settingsShow = ref(false)
-const AppNav = defineAsyncComponent(() => import('./AppNav.vue'))
-const AppNavMini = defineAsyncComponent(() => import('./AppNavMini.vue'))
-const AppNavMd = defineAsyncComponent(() => import('./AppNavMd.vue'))
-
-const { isTablet, isDesktop } = useAppBreakpoints()
-
 const themeVars = useThemeVars()
+const menusStore = useMenusStore()
+const { isDesktop, isMobile } = useAppBreakpoints()
 
-useEventBus(EventKeys.showSettings).on(() => {
-  settingsShow.value = !settingsShow.value
-})
+// 显示或隐藏侧边菜单
+function toggleSlideMenus() {
+  menusStore.isSlideMenusShow = !menusStore.isSlideMenusShow
+}
 </script>
 
 <template>
@@ -43,19 +37,28 @@ useEventBus(EventKeys.showSettings).on(() => {
       </NIcon>
     </RouterLink>
 
-    <AppNav v-if="isDesktop" :menus="menus" />
-    <AppNavMd v-else-if="isTablet" :menus="menus" />
-    <AppNavMini v-else :menus="menus" />
+    <nav v-if="isDesktop" class="nav">
+      <RouterLink
+        v-for="menu in menusStore.menus"
+        :key="menu.key"
+        :to="{
+          name: menu.routeName,
+        }"
+      >
+        {{ typeof menu.label === 'function' ? menu.label() : menu.label }}
+      </RouterLink>
+    </nav>
+    <NButton v-else quaternary @click="toggleSlideMenus" class="menu-btn">
+      <template #icon>
+        <NIcon>
+          <IconIonMenuSharp />
+        </NIcon>
+      </template>
 
-    <NDrawer v-model:show="settingsShow" default-width="35%" placement="right">
-      <NDrawerContent closable :title="t('title.settings')">
-        <AppSettings />
+      {{ t('label.menu') }}
+    </NButton>
 
-        <template #footer>
-          <VersionInfo class="version-info" />
-        </template>
-      </NDrawerContent>
-    </NDrawer>
+    <AppToolBar :mode="isMobile ? 'dropdown' : 'list'" />
   </header>
 </template>
 
@@ -85,9 +88,11 @@ useEventBus(EventKeys.showSettings).on(() => {
   filter: hue-rotate(0deg);
 }
 
-.version-info {
-  opacity: 0.4;
+.nav {
   flex: 1;
-  text-align: center;
+}
+
+.menu-btn {
+  margin-right: auto;
 }
 </style>
