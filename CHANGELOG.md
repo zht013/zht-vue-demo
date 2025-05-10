@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/zht013/zht-vue-demo/compare/v1.1.0...v1.2.0) (2025-05-10)
+
+
+### Features
+
+* adjust menu navigation and layout ([ba589e6](https://github.com/zht013/zht-vue-demo/commit/ba589e6a01e50f2fbc1b6899f8d80aea3a6a3564))
+* **responsive:** adjust header and slide navigation to responsive for different screen ([7c77312](https://github.com/zht013/zht-vue-demo/commit/7c77312ca1ebc2be34b20f525a1cf8443559b567))
+
 ## [1.1.0](https://github.com/zht013/zht-vue-demo/compare/v1.0.1...v1.1.0) (2025-05-03)
 
 
