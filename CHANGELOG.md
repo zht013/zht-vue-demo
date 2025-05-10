@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/zht013/zht-vue-demo/compare/v1.2.0...v1.3.0) (2025-05-10)
+
+
+### Features
+
+* add pull to refresh ([31b6c67](https://github.com/zht013/zht-vue-demo/commit/31b6c678d76c9f6d3499d4c14f4c3b003c19c8e9))
+
 ## [1.2.0](https://github.com/zht013/zht-vue-demo/compare/v1.1.0...v1.2.0) (2025-05-10)
 
 
