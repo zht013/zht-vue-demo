@@ -5,6 +5,10 @@ import { useEventBus } from '@vueuse/core'
 import { EventKeys } from '@/constants/keys'
 import { useThemeVars } from 'naive-ui'
 
+defineProps<{
+  isRefreshView: boolean
+}>()
+
 const route = useRoute()
 const layout = ref<LayoutType | undefined>()
 
@@ -24,12 +28,12 @@ const themeVars = useThemeVars()
   <component
     v-if="layout"
     :is="layoutMap[layout].component"
+    :is-refresh-view="isRefreshView"
     :style="{
       '--a-text-color': themeVars.textColor1,
       '--a-hover-color': themeVars.primaryColor,
     }"
   />
-  <RouterView v-else />
 </template>
 
 <style>

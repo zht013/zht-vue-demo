@@ -7,6 +7,10 @@ import { useEventBus } from '@vueuse/core'
 import { EventKeys } from '@/constants/keys'
 import AppAside from './components/AppAside.vue'
 
+defineProps<{
+  isRefreshView: boolean
+}>()
+
 const themeVars = useThemeVars()
 const { t } = useAppI18n()
 
@@ -42,7 +46,7 @@ useEventBus(EventKeys.showSettings).on(() => {
       >
         <RouterView v-slot="{ Component }">
           <Transition name="default" mode="out-in">
-            <component :is="Component" />
+            <component v-if="!isRefreshView" :is="Component" />
           </Transition>
         </RouterView>
       </div>

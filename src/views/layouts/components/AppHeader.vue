@@ -6,16 +6,16 @@ import AppToolBar from './AppToolBar.vue'
 import { useAppBreakpoints } from '@/composables/appBreakpoints'
 import { useMenusStore } from '@/stores/menu'
 import { useAppI18n } from '@/composables/appI18n'
+import { useToggle } from '@vueuse/core'
 
 const { t } = useAppI18n()
 const themeVars = useThemeVars()
-const menusStore = useMenusStore()
+const { menus } = useMenusStore()
+const { isSlideMenusShow } = storeToRefs(useMenusStore())
 const { isDesktop, isMobile } = useAppBreakpoints()
 
 // 显示或隐藏侧边菜单
-function toggleSlideMenus() {
-  menusStore.isSlideMenusShow = !menusStore.isSlideMenusShow
-}
+const toggleSlideMenus = useToggle(isSlideMenusShow)
 </script>
 
 <template>
@@ -39,7 +39,7 @@ function toggleSlideMenus() {
 
     <nav v-if="isDesktop" class="nav">
       <RouterLink
-        v-for="menu in menusStore.menus"
+        v-for="menu in menus"
         :key="menu.key"
         :to="{
           name: menu.routeName,
@@ -48,7 +48,7 @@ function toggleSlideMenus() {
         {{ typeof menu.label === 'function' ? menu.label() : menu.label }}
       </RouterLink>
     </nav>
-    <NButton v-else quaternary @click="toggleSlideMenus" class="menu-btn">
+    <NButton v-else quaternary @click="toggleSlideMenus()" class="menu-btn">
       <template #icon>
         <NIcon>
           <IconIonMenuSharp />
@@ -66,7 +66,7 @@ function toggleSlideMenus() {
 .header {
   display: flex;
   align-items: center;
-  padding: 0.4rem 0.6rem 0.4rem 1.4rem;
+  padding: 0.4rem 1rem 0.4rem 1.4rem;
   border-bottom: 1px solid var(--border-color);
   backdrop-filter: blur(2px);
   background-image: radial-gradient(transparent 0.1rem, var(--background-color) 0.1rem);

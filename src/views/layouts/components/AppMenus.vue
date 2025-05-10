@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useAppI18n } from '@/composables/appI18n'
+import { RouteName } from '@/router/constants'
 import type { AppMenu } from '@/types'
 
 const { menus = [] } = defineProps<{
@@ -6,6 +8,7 @@ const { menus = [] } = defineProps<{
   menus?: AppMenu[]
   treeMode?: boolean
 }>()
+const { t } = useAppI18n()
 </script>
 
 <template>
@@ -19,7 +22,13 @@ const { menus = [] } = defineProps<{
     </li>
     <li v-for="menu in menus" :key="menu.key">
       <label v-if="menu.isGroup">
-        {{ typeof menu.label === 'function' ? menu.label() : menu.label }}
+        {{
+          typeof menu.label === 'function'
+            ? treeMode && menu.routeName === RouteName.VUE3.ROOT
+              ? t('nav.vue3.start')
+              : menu.label()
+            : menu.label
+        }}
       </label>
       <RouterLink
         v-else

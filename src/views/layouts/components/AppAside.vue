@@ -4,42 +4,41 @@ import { type AppMenu } from '@/types'
 import { useThemeVars } from 'naive-ui'
 import AppMenus from './AppMenus.vue'
 import { useAppBreakpoints } from '@/composables/appBreakpoints'
-import { useEventListener } from '@vueuse/core'
+import { useEventListener, useToggle } from '@vueuse/core'
 
 const themeVars = useThemeVars()
 const { isDesktop, isTablet } = useAppBreakpoints()
-const menusStore = useMenusStore()
+const { menus: allMenus } = useMenusStore()
+const { rootMenu, isSlideMenusShow } = storeToRefs(useMenusStore())
+// 桌面使用根菜单的子菜单列表，其它使用全菜单
 const menus = computed<AppMenu[]>(() => {
-  return isDesktop.value ? (menusStore.rootMenu?.children ?? []) : menusStore.menus
+  return isDesktop.value ? (rootMenu.value?.children ?? []) : allMenus
 })
+// 不同的屏幕设置不同的宽度
 const asideWidth = computed(() => {
   return isDesktop.value ? themeVars.value.appAsideWidth : isTablet.value ? '36%' : '100%'
 })
 
-// 监听动画结束，添加 class 以便在屏幕改变时不执行 transition
+// 监听动画结束，添加 animated 以便在屏幕改变时不执行 transition
 const aside = useTemplateRef('aside')
 aside.value?.classList.add('animated')
 useEventListener(aside, 'transitionend', () => {
   aside.value?.classList.add('animated')
 })
 
-watch(
-  () => menusStore.isSlideMenusShow,
-  async () => {
-    aside.value?.classList.remove('animated')
-  },
-)
+// 当 slide menus 状态改变时，删除 animated 执行动画
+watch(isSlideMenusShow, async () => {
+  aside.value?.classList.remove('animated')
+})
 
 onBeforeRouteUpdate(() => {
-  if (!isDesktop.value && menusStore.isSlideMenusShow) {
-    menusStore.isSlideMenusShow = false
+  if (!isDesktop.value && isSlideMenusShow.value) {
+    isSlideMenusShow.value = false
   }
 })
 
 // 切换导航栏的显示和隐藏
-function toggleSlideMenus() {
-  menusStore.isSlideMenusShow = !menusStore.isSlideMenusShow
-}
+const toggleSlideMenus = useToggle(isSlideMenusShow)
 </script>
 
 <template>
@@ -47,7 +46,7 @@ function toggleSlideMenus() {
     ref="aside"
     class="aside"
     :class="{
-      show: menusStore.isSlideMenusShow,
+      show: isSlideMenusShow,
       float: !isDesktop,
     }"
     :style="{
@@ -68,8 +67,8 @@ function toggleSlideMenus() {
         </AppMenus>
       </nav>
 
-      <button class="toggle-btn" @click="toggleSlideMenus" title="">
-        <IconIonChevronForward v-if="!menusStore.isSlideMenusShow" /><IconIonChevronBack v-else />
+      <button class="toggle-btn" @click="toggleSlideMenus()" title="">
+        <IconIonChevronForward v-if="!isSlideMenusShow" /><IconIonChevronBack v-else />
       </button>
     </template>
     <template v-else>
@@ -77,7 +76,7 @@ function toggleSlideMenus() {
         <AppMenus :menus="menus" tree-mode />
       </nav>
 
-      <div v-if="isTablet" class="backdrop" @click="toggleSlideMenus"></div>
+      <div v-if="isTablet" class="backdrop" @click="toggleSlideMenus()"></div>
     </template>
   </aside>
 </template>

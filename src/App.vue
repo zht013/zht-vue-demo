@@ -11,10 +11,11 @@ import { useAppI18n } from './composables/appI18n'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 import appNotification from './helpers/AppNotification'
 import appDialog from './helpers/AppDialog'
-import { useEventBus, useWindowScroll, useWindowSize } from '@vueuse/core'
+import { useDebounceFn, useEventBus, useOnline, useWindowScroll, useWindowSize } from '@vueuse/core'
 import { lightTheme } from 'naive-ui'
 import { EventKeys } from './constants/keys'
 import appDarkThemeOverrides from './theme/dark'
+import { usePullToRefresh } from './composables/appPullToRefresh'
 
 // PWA 相关
 const { updateServiceWorker } = useRegisterSW({
@@ -62,14 +63,34 @@ const scrollPercentage = computed(() => {
 // 主题相关
 const themeOverrides = shallowRef(appLightThemeOverrides)
 const theme = shallowRef<GlobalTheme>(lightTheme)
-useEventBus(EventKeys.themeChanged).on(async (value: GlobalTheme) => {
+useEventBus(EventKeys.themeChanged).on((value: GlobalTheme) => {
   theme.value = value
+
   if (theme.value.name === 'dark') {
     themeOverrides.value = appDarkThemeOverrides
   } else {
     themeOverrides.value = appLightThemeOverrides
   }
 })
+
+// 监听网络状态
+const isOnline = useOnline()
+watch(isOnline, () => {
+  if (!isOnline.value) {
+    appNotification.error('网络已断开...')
+  } else {
+    appNotification.success('网络已连接...')
+  }
+})
+
+// 刷新视图
+const isRefreshView = ref<boolean>(false)
+const refreshView = useDebounceFn(async () => {
+  isRefreshView.value = true
+  await nextTick()
+  isRefreshView.value = false
+}, 500)
+const { distance, isPullEnd } = usePullToRefresh(refreshView)
 
 onMounted(() => {
   document.getElementById('app-spinner')?.remove()
@@ -84,20 +105,34 @@ onMounted(() => {
     :theme="theme"
   >
     <div
-      class="page-progress"
+      class="scroll-progress"
       :style="{
         '--doc-scroll-percentage': scrollPercentage,
       }"
     ></div>
 
-    <RouterView />
+    <div
+      class="pull-refresh"
+      :class="{
+        animate: isPullEnd,
+      }"
+      :style="{
+        '--pull-distance': distance,
+      }"
+    >
+      刷新...
+    </div>
+
+    <RouterView v-slot="{ Component }">
+      <component :is="Component" :is-refresh-view="isRefreshView" />
+    </RouterView>
 
     <NGlobalStyle />
   </NConfigProvider>
 </template>
 
 <style>
-.page-progress {
+.scroll-progress {
   position: fixed;
   top: 0;
   left: 0;
@@ -107,5 +142,20 @@ onMounted(() => {
   z-index: 10;
   transform: scale(var(--doc-scroll-percentage), 1);
   transform-origin: 0;
+}
+
+.pull-refresh {
+  position: fixed;
+  top: -2rem;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  z-index: 100;
+  opacity: 0.6;
+  transform: translateY(calc(var(--pull-distance) * 1px));
+
+  &.animate {
+    transition: transform 200ms ease;
+  }
 }
 </style>
