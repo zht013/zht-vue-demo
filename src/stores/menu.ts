@@ -31,9 +31,9 @@ export const useMenusStore = defineStore('menu', () => {
   watchEffect(() => {
     if (!isDesktop.value) {
       if (isSlideMenusShow.value) {
-        document.body.style.overflow = 'hidden'
+        document.documentElement.style.overflow = 'hidden'
       } else {
-        document.body.style.removeProperty('overflow')
+        document.documentElement.style.removeProperty('overflow')
       }
     }
   })
