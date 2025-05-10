@@ -51,7 +51,8 @@ const toggleSlideMenus = useToggle(isSlideMenusShow)
     <NButton v-else quaternary @click="toggleSlideMenus()" class="menu-btn">
       <template #icon>
         <NIcon>
-          <IconIonMenuSharp />
+          <IconIonCloseOutline v-if="isSlideMenusShow" />
+          <IconIonMenuSharp v-else />
         </NIcon>
       </template>
 
