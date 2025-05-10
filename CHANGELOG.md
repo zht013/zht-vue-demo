@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/zht013/zht-vue-demo/compare/v1.3.0...v1.3.1) (2025-05-10)
+
+
+### Bug Fixes
+
+* fix document overflow issue when slide menu opened with small screen ([c004483](https://github.com/zht013/zht-vue-demo/commit/c004483e047c35474d54ed8310b2ff294f554b05))
+
 ## [1.3.0](https://github.com/zht013/zht-vue-demo/compare/v1.2.0...v1.3.0) (2025-05-10)
 
 
