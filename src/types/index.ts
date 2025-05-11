@@ -30,6 +30,8 @@ export type AppMenu = {
   isGroup?: boolean
   /** 路由的标签名称 */
   label?: (() => string) | string
+  /** 鼠标 hover 时的标题 */
+  title?: (() => string) | string
   /** 包含的子路由 */
   children?: Array<AppMenu>
 }

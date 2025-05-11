@@ -6,6 +6,7 @@ import { useAppI18n } from '@/composables/appI18n'
 import { useEventBus } from '@vueuse/core'
 import { EventKeys } from '@/constants/keys'
 import AppAside from './components/AppAside.vue'
+import AppRouteHistory from './components/AppRouteHistory.vue'
 
 defineProps<{
   isRefreshView: boolean
@@ -31,12 +32,19 @@ useEventBus(EventKeys.showSettings).on(() => {
     class="layout"
     :style="{
       '--app-header-height': themeVars.appHeaderHeight,
+      '--bg-color1': themeVars.bgColor1,
     }"
   >
     <AppHeader class="header" />
 
     <div class="main">
-      <AppAside />
+      <AppAside
+        class="aside"
+        :aside-width="themeVars.appAsideWidth"
+        :style="{
+          '--bg-color': isDesktop ? themeVars.bgColor1 : themeVars.bgColor,
+        }"
+      />
 
       <div
         class="content"
@@ -44,6 +52,8 @@ useEventBus(EventKeys.showSettings).on(() => {
           '--bg-color': themeVars.baseColor,
         }"
       >
+        <AppRouteHistory class="route-tabs" />
+
         <RouterView v-slot="{ Component }">
           <Transition name="default" mode="out-in">
             <component v-if="!isRefreshView" :is="Component" />
@@ -69,6 +79,7 @@ useEventBus(EventKeys.showSettings).on(() => {
   display: flex;
   flex-flow: column nowrap;
   min-height: 100vh;
+  background: var(--bg-color1);
 }
 
 .header {
@@ -84,10 +95,22 @@ useEventBus(EventKeys.showSettings).on(() => {
   flex-flow: row wrap;
 }
 
+.aside {
+  position: sticky;
+  top: var(--app-header-height);
+  z-index: 2;
+}
+
 .content {
   flex: 1;
   padding: 1rem;
   background: var(--bg-color);
+}
+
+.route-tabs {
+  position: sticky;
+  top: var(--app-header-height);
+  z-index: 2;
 }
 
 .version-info {

@@ -10,17 +10,17 @@ export default {
     label: () => i18n.global.t('nav.three.label'),
     isMenu: true,
   },
-  redirect: { name: RouteName.THREE.INTRODUCE },
+  redirect: { name: RouteName.THREE.DASHBOARD },
   children: [
     {
-      path: 'introduction',
+      path: 'dashboard',
       alias: '',
-      name: RouteName.THREE.INTRODUCE,
+      name: RouteName.THREE.DASHBOARD,
       meta: {
-        label: () => i18n.global.t('nav.three.introduction'),
+        label: () => i18n.global.t('nav.three.dashboard'),
         isMenu: true,
       },
-      component: () => import('@/views/three/HomeView.vue'),
+      component: () => import('@/views/three/DashboardView.vue'),
     },
   ],
 } as RouteRecordRaw

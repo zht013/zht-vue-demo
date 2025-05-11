@@ -10,17 +10,17 @@ export default {
     label: () => i18n.global.t('nav.echarts.label'),
     isMenu: true,
   },
-  redirect: { name: RouteName.ECHARTS.INTRODUCE },
+  redirect: { name: RouteName.ECHARTS.DASHBOARD },
   children: [
     {
-      path: 'introduction',
+      path: 'dashboard',
       alias: '',
-      name: RouteName.ECHARTS.INTRODUCE,
+      name: RouteName.ECHARTS.DASHBOARD,
       meta: {
         isMenu: true,
-        label: () => i18n.global.t('nav.echarts.introduction'),
+        label: () => i18n.global.t('nav.echarts.dashboard'),
       },
-      component: () => import('@/views/echarts/HomeView.vue'),
+      component: () => import('@/views/echarts/DashboardView.vue'),
     },
   ],
 } as RouteRecordRaw

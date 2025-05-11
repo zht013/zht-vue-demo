@@ -10,17 +10,17 @@ export default {
     label: () => i18n.global.t('nav.d3.label'),
     isMenu: true,
   },
-  redirect: { name: RouteName.D3.INTRODUCE },
+  redirect: { name: RouteName.D3.DASHBOARD },
   children: [
     {
-      path: 'introduction',
+      path: 'dashboard',
       alias: '',
-      name: RouteName.D3.INTRODUCE,
+      name: RouteName.D3.DASHBOARD,
       meta: {
-        label: () => i18n.global.t('nav.d3.introduction'),
+        label: () => i18n.global.t('nav.d3.dashboard'),
         isMenu: true,
       },
-      component: () => import('@/views/d3/HomeView.vue'),
+      component: () => import('@/views/d3/DashboardView.vue'),
     },
   ],
 } as RouteRecordRaw

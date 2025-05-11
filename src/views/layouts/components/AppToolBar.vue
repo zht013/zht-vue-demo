@@ -15,7 +15,7 @@ const productionUrl = import.meta.env.VITE_PRODUCTION_URL
 const isDev = import.meta.env.DEV
 
 const eventBus = useEventBus(EventKeys.showSettings)
-function showSettings() {
+const showSettings = () => {
   eventBus.emit()
 }
 </script>

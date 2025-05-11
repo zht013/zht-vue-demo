@@ -1,12 +1,16 @@
 {
   "label": {
-    "menu": "Menu"
+    "menu": "Menu",
+    "closeOtherTabs": "Close Other Tabs",
+    "refreshCurrentPage": "Refresh Current Page",
+    "start": "Start"
   },
   "title": {
     "language": "Language",
     "version": "Version",
     "settings": "Settings",
-    "login": "Login"
+    "login": "Login",
+    "close": "Close"
   },
   "nav": {
     "vue3": {
@@ -20,15 +24,15 @@
     },
     "d3": {
       "label": "D3JS",
-      "introduction": "Introduction"
+      "dashboard": "Dashboard"
     },
     "three": {
       "label": "ThreeJS",
-      "introduction": "Introduction"
+      "dashboard": "Dashboard"
     },
     "echarts": {
       "label": "Echarts",
-      "introduction": "Introduction"
+      "dashboard": "Dashboard"
     },
     "dvProject": {
       "label": "Visualization Project"

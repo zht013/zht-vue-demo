@@ -4,14 +4,14 @@ import { NIcon, NButton, useThemeVars } from 'naive-ui'
 import { RouterLink } from 'vue-router'
 import AppToolBar from './AppToolBar.vue'
 import { useAppBreakpoints } from '@/composables/appBreakpoints'
-import { useMenusStore } from '@/stores/menu'
+import { useMenuStore } from '@/stores/menu'
 import { useAppI18n } from '@/composables/appI18n'
 import { useToggle } from '@vueuse/core'
 
 const { t } = useAppI18n()
 const themeVars = useThemeVars()
-const { menus } = useMenusStore()
-const { isSlideMenusShow } = storeToRefs(useMenusStore())
+const { menus } = useMenuStore()
+const { isSlideMenusShow } = storeToRefs(useMenuStore())
 const { isDesktop, isMobile } = useAppBreakpoints()
 
 // 显示或隐藏侧边菜单
@@ -20,9 +20,9 @@ const toggleSlideMenus = useToggle(isSlideMenusShow)
 
 <template>
   <header
-    class="header"
+    class="header-root"
     :style="{
-      '--background-color': themeVars.bgColor,
+      '--bg-color': themeVars.bgColor,
       '--border-color': themeVars.borderColor,
     }"
   >
@@ -64,13 +64,13 @@ const toggleSlideMenus = useToggle(isSlideMenusShow)
 </template>
 
 <style scoped>
-.header {
+.header-root {
   display: flex;
   align-items: center;
   padding: 0.4rem 1rem 0.4rem 1.4rem;
   border-bottom: 1px solid var(--border-color);
   backdrop-filter: blur(2px);
-  background-image: radial-gradient(transparent 0.1rem, var(--background-color) 0.1rem);
+  background-image: radial-gradient(transparent 0.1rem, var(--bg-color) 0.1rem);
   background-size: 0.4rem 0.4rem;
 }
 

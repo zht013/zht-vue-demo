@@ -16,15 +16,15 @@ export const RouteName = {
   },
   ECHARTS: {
     ROOT: Symbol(),
-    INTRODUCE: Symbol(),
+    DASHBOARD: Symbol(),
   },
   D3: {
     ROOT: Symbol(),
-    INTRODUCE: Symbol(),
+    DASHBOARD: Symbol(),
   },
   THREE: {
     ROOT: Symbol(),
-    INTRODUCE: Symbol(),
+    DASHBOARD: Symbol(),
   },
   DV_PROJECT: {
     HOME: Symbol(),

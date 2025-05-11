@@ -3,7 +3,7 @@ import { routes } from '@/router'
 import type { AppMenu } from '@/types'
 import type { RouteRecordRaw } from 'vue-router'
 
-export const useMenusStore = defineStore('menu', () => {
+export const useMenuStore = defineStore('menu', () => {
   const router = useRouter()
   const route = useRoute()
   const menus = convertRoutesToMenus()

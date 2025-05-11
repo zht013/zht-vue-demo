@@ -6,4 +6,5 @@ export class EventKeys {
   static readonly layoutChanged: EventBusKey<LayoutType> = Symbol()
   static readonly themeChanged: EventBusKey<GlobalTheme> = Symbol()
   static readonly showSettings: EventBusKey<unknown> = Symbol()
+  static readonly refreshView: EventBusKey<unknown> = Symbol()
 }

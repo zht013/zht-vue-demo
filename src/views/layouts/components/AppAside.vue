@@ -1,22 +1,31 @@
 <script setup lang="ts">
-import { useMenusStore } from '@/stores/menu'
+import { useMenuStore } from '@/stores/menu'
 import { type AppMenu } from '@/types'
 import { useThemeVars } from 'naive-ui'
 import AppMenus from './AppMenus.vue'
 import { useAppBreakpoints } from '@/composables/appBreakpoints'
 import { useEventListener, useToggle } from '@vueuse/core'
 
+const { asideWidth } = defineProps<{
+  asideWidth?: string
+}>()
 const themeVars = useThemeVars()
 const { isDesktop, isTablet } = useAppBreakpoints()
-const { menus: allMenus } = useMenusStore()
-const { rootMenu, isSlideMenusShow } = storeToRefs(useMenusStore())
+const { menus: allMenus } = useMenuStore()
+const { rootMenu, isSlideMenusShow } = storeToRefs(useMenuStore())
 // 桌面使用根菜单的子菜单列表，其它使用全菜单
 const menus = computed<AppMenu[]>(() => {
   return isDesktop.value ? (rootMenu.value?.children ?? []) : allMenus
 })
 // 不同的屏幕设置不同的宽度
-const asideWidth = computed(() => {
-  return isDesktop.value ? themeVars.value.appAsideWidth : isTablet.value ? '36%' : '100%'
+const dynamicAsideWidth = computed(() => {
+  if (isDesktop.value) {
+    return asideWidth ?? themeVars.value.appAsideWidth
+  } else if (isTablet.value) {
+    return '36%'
+  } else {
+    return '100%'
+  }
 })
 
 // 监听动画结束，添加 animated 以便在屏幕改变时不执行 transition
@@ -44,7 +53,7 @@ const toggleSlideMenus = useToggle(isSlideMenusShow)
 <template>
   <aside
     ref="aside"
-    class="aside"
+    class="aside-root"
     :class="{
       show: isSlideMenusShow,
       float: !isDesktop,
@@ -53,8 +62,7 @@ const toggleSlideMenus = useToggle(isSlideMenusShow)
       '--border-color': themeVars.borderColor,
       '--divider-color': themeVars.dividerColor,
       '--hover-color': themeVars.hoverColor,
-      '--bg-color': isDesktop ? themeVars.bgColor1 : themeVars.bgColor,
-      '--aside-width': asideWidth,
+      '--aside-width': dynamicAsideWidth,
       '--backdrop-color': themeVars.backdropColor,
     }"
   >
@@ -62,7 +70,7 @@ const toggleSlideMenus = useToggle(isSlideMenusShow)
       <nav class="nav hover-scrollbar">
         <AppMenus :menus="menus">
           <template #prepend>
-            <label>开始</label>
+            <label>{{ $t('label.start') }}</label>
           </template>
         </AppMenus>
       </nav>
@@ -82,11 +90,8 @@ const toggleSlideMenus = useToggle(isSlideMenusShow)
 </template>
 
 <style scoped>
-.aside {
-  position: sticky;
-  top: var(--app-header-height);
+.aside-root {
   height: calc(100vh - var(--app-header-height) - 1px);
-  z-index: 2;
   border-right: 1px solid var(--border-color);
   transition: margin-left 260ms ease-out;
   margin-left: calc(var(--aside-width) * -1);
@@ -119,6 +124,7 @@ const toggleSlideMenus = useToggle(isSlideMenusShow)
 
   &.float {
     position: absolute;
+    z-index: 4;
 
     & > .nav {
       backdrop-filter: blur(2px);

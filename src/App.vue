@@ -16,6 +16,7 @@ import { lightTheme } from 'naive-ui'
 import { EventKeys } from './constants/keys'
 import appDarkThemeOverrides from './theme/dark'
 import { usePullToRefresh } from './composables/appPullToRefresh'
+import appLoadingBar from './helpers/AppLoadingBar'
 
 // PWA 相关
 const { updateServiceWorker } = useRegisterSW({
@@ -91,6 +92,11 @@ const refreshView = useDebounceFn(async () => {
   isRefreshView.value = false
 }, 500)
 const { distance, isPullEnd } = usePullToRefresh(refreshView)
+useEventBus(EventKeys.refreshView).on(async () => {
+  appLoadingBar.start()
+  await refreshView()
+  appLoadingBar.finish()
+})
 
 onMounted(() => {
   document.getElementById('app-spinner')?.remove()

@@ -11,7 +11,7 @@ const options = supportedLocales.map((l) => ({
   value: l.code,
 }))
 
-async function changeLocale() {
+const changeLocale = async () => {
   await setLocale(locale.value)
 
   router.replace({
