@@ -8,3 +8,7 @@ export class EventKeys {
   static readonly showSettings: EventBusKey<unknown> = Symbol()
   static readonly refreshView: EventBusKey<unknown> = Symbol()
 }
+
+export class LocalstorageKeys {
+  static readonly routeHistory = 'route-history-enabled'
+}

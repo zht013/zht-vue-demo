@@ -6,7 +6,7 @@ import { useAppI18n } from '@/composables/appI18n'
 import { useEventBus } from '@vueuse/core'
 import { EventKeys } from '@/constants/keys'
 import AppAside from './components/AppAside.vue'
-import AppRouteHistory from './components/AppRouteHistory.vue'
+import { useAppStore } from '@/stores/app'
 
 defineProps<{
   isRefreshView: boolean
@@ -14,8 +14,10 @@ defineProps<{
 
 const themeVars = useThemeVars()
 const { t } = useAppI18n()
-
 const { isDesktop, isTablet } = useAppBreakpoints()
+
+const { routeHistoryEnabled } = storeToRefs(useAppStore())
+const AppRouteHistory = defineAsyncComponent(() => import('./components/AppRouteHistory.vue'))
 
 // settings 相关
 const settingsDrawerWidth = computed(() => {
@@ -52,7 +54,15 @@ useEventBus(EventKeys.showSettings).on(() => {
           '--bg-color': themeVars.baseColor,
         }"
       >
-        <AppRouteHistory class="route-tabs" />
+        <div
+          v-if="routeHistoryEnabled"
+          :style="{
+            height: themeVars.routeHistoryHeight,
+            marginBottom: '1rem',
+          }"
+        >
+          <AppRouteHistory class="route-tabs" :height="themeVars.routeHistoryHeight" />
+        </div>
 
         <RouterView v-slot="{ Component }">
           <Transition name="default" mode="out-in">
@@ -111,7 +121,6 @@ useEventBus(EventKeys.showSettings).on(() => {
   position: sticky;
   top: var(--app-header-height);
   z-index: 2;
-  margin-bottom: 1rem;
 }
 
 .version-info {

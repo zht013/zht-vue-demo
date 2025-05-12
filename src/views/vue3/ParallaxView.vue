@@ -27,6 +27,7 @@ const { tilt: bgTilt, roll: bgRoll } = useParallax(parallaxBgRef)
         '--img-tilt': tilt,
         '--img-roll': roll,
       }"
+      class="card"
     >
       <div ref="parallaxRef" class="card-wrapper">
         <div
@@ -61,6 +62,7 @@ const { tilt: bgTilt, roll: bgRoll } = useParallax(parallaxBgRef)
         '--bg-tilt': bgTilt,
         '--bg-roll': bgRoll,
       }"
+      class="card"
     >
       <div ref="parallaxBgRef" class="card-wrapper bg-card">
         <div
@@ -75,11 +77,14 @@ const { tilt: bgTilt, roll: bgRoll } = useParallax(parallaxBgRef)
 </template>
 
 <style scoped>
+.card {
+  margin-bottom: 4rem;
+}
+
 .card-wrapper {
   background: var(--bg-color);
   height: 40rem;
   border: 1px solid var(--border-color);
-  margin-bottom: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;

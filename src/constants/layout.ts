@@ -1,6 +1,6 @@
 import { LayoutType, type LayoutOption } from '@/types'
 
-const layoutMap: Record<LayoutType, LayoutOption> = {
+export const layoutMap: Record<LayoutType, LayoutOption> = {
   [LayoutType.default]: {
     name: '默认布局',
     type: LayoutType.default,
@@ -12,5 +12,3 @@ const layoutMap: Record<LayoutType, LayoutOption> = {
     component: defineAsyncComponent(() => import('@/views/layouts/DvProjectLayoutView.vue')),
   },
 }
-
-export { layoutMap }

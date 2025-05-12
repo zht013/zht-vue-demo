@@ -5,7 +5,10 @@
     "refreshCurrentPage": "Refresh Current Page",
     "start": "Start",
     "imgParallax": "Image",
-    "bgParallax": "Background Image"
+    "bgParallax": "Background Image",
+    "routeHistory": "Route History",
+    "enable": "Enable",
+    "disable": "Disable"
   },
   "title": {
     "language": "Language",
