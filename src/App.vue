@@ -86,17 +86,23 @@ watch(isOnline, () => {
 
 // 刷新视图
 const isRefreshView = ref<boolean>(false)
-const refreshView = useDebounceFn(async () => {
+const refreshViewDebounce = useDebounceFn(async () => {
   isRefreshView.value = true
   await nextTick()
   isRefreshView.value = false
 }, 500)
-const { distance, isPullEnd } = usePullToRefresh(refreshView)
-useEventBus(EventKeys.refreshView).on(async () => {
-  appLoadingBar.start()
-  await refreshView()
-  appLoadingBar.finish()
+const { distance, isPullEnd } = usePullToRefresh(() => {
+  return refreshView()
 })
+useEventBus(EventKeys.refreshView).on(() => {
+  refreshView()
+})
+
+async function refreshView() {
+  appLoadingBar.start()
+  await refreshViewDebounce()
+  appLoadingBar.finish()
+}
 
 onMounted(() => {
   document.getElementById('app-spinner')?.remove()

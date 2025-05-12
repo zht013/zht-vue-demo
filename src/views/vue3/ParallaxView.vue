@@ -22,7 +22,7 @@ const { tilt: bgTilt, roll: bgRoll } = useParallax(parallaxBgRef)
     }"
   >
     <NCard
-      title="图片"
+      :title="$t('label.imgParallax')"
       :style="{
         '--img-tilt': tilt,
         '--img-roll': roll,
@@ -56,7 +56,7 @@ const { tilt: bgTilt, roll: bgRoll } = useParallax(parallaxBgRef)
     </NCard>
 
     <NCard
-      title="背景图片"
+      :title="$t('label.bgParallax')"
       :style="{
         '--bg-tilt': bgTilt,
         '--bg-roll': bgRoll,

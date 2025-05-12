@@ -210,7 +210,7 @@ const dropdownOptions = computed<DropdownOption[]>(() => [
     class="route-tabs-root"
     :style="{
       '--border-color': themeVars.borderColor,
-      '--bg-color': themeVars.bgColor1,
+      '--bg-color': themeVars.bgColor,
     }"
   >
     <NButton v-if="showLeftButton" @click="handleLeftBtnClick" class="left-btn">
@@ -279,6 +279,7 @@ const dropdownOptions = computed<DropdownOption[]>(() => [
   border-radius: 0.4rem;
   border: 1px solid var(--border-color);
   height: 3.6rem;
+  backdrop-filter: blur(0.8rem);
 }
 
 .tabs-wrapper {

@@ -3,7 +3,9 @@
     "menu": "Menu",
     "closeOtherTabs": "Close Other Tabs",
     "refreshCurrentPage": "Refresh Current Page",
-    "start": "Start"
+    "start": "Start",
+    "imgParallax": "Image",
+    "bgParallax": "Background Image"
   },
   "title": {
     "language": "Language",
