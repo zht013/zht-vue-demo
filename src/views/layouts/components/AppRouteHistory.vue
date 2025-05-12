@@ -5,6 +5,7 @@ import { useMenuStore } from '@/stores/menu'
 import { NButton, NDropdown, NIcon, useThemeVars, type DropdownOption } from 'naive-ui'
 import { useAppI18n } from '@/composables/appI18n'
 import { EventKeys } from '@/constants/keys'
+import { useAppBreakpoints } from '@/composables/appBreakpoints'
 
 defineProps<{
   height?: string
@@ -12,6 +13,7 @@ defineProps<{
 
 const router = useRouter()
 const { t } = useAppI18n()
+const { isDesktop } = useAppBreakpoints()
 const themeVars = useThemeVars()
 const { currentMenu, rootMenu } = storeToRefs(useMenuStore())
 const showLeftButton = ref(false)
@@ -149,7 +151,8 @@ function checkShowLeftAndRightBtn() {
     const totalTabsWidth = tabListRef.value?.reduce((totalWidth, currentItem) => {
       return totalWidth + currentItem.offsetWidth
     }, 0)
-    showLeftButton.value = showRightButton.value = totalTabsWidth! > tabsWrapperElement.clientWidth
+    showLeftButton.value = showRightButton.value =
+      totalTabsWidth! > tabsWrapperElement.clientWidth && isDesktop.value
   }
 }
 

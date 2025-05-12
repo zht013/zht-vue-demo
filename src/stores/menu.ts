@@ -1,4 +1,3 @@
-import { useAppBreakpoints } from '@/composables/appBreakpoints'
 import { routes } from '@/router'
 import type { AppMenu } from '@/types'
 import type { RouteRecordRaw } from 'vue-router'
@@ -7,8 +6,6 @@ export const useMenuStore = defineStore('menu', () => {
   const router = useRouter()
   const route = useRoute()
   const menus = convertRoutesToMenus()
-  const { isDesktop } = useAppBreakpoints()
-  const isSlideMenusShow = ref<boolean>(isDesktop.value)
 
   // 当前菜单项
   const currentMenu = computed<AppMenu | undefined>(() => {
@@ -26,16 +23,6 @@ export const useMenuStore = defineStore('menu', () => {
   const rootMenu = computed<AppMenu | undefined>(() => {
     const rootRouteKey = rootRoute.value?.meta?.key
     return rootRouteKey ? getMenu(rootRouteKey) : undefined
-  })
-
-  watchEffect(() => {
-    if (!isDesktop.value) {
-      if (isSlideMenusShow.value) {
-        document.documentElement.style.overflow = 'hidden'
-      } else {
-        document.documentElement.style.removeProperty('overflow')
-      }
-    }
   })
 
   /**
@@ -107,7 +94,5 @@ export const useMenuStore = defineStore('menu', () => {
     rootMenu,
     /** 当前带单项 */
     currentMenu,
-    /** 侧导航是否显示 */
-    isSlideMenusShow,
   }
 })

@@ -3,19 +3,24 @@ import { RouteName } from '@/router/constants'
 import { NIcon, NButton, useThemeVars } from 'naive-ui'
 import { RouterLink } from 'vue-router'
 import AppToolBar from './AppToolBar.vue'
-import { useAppBreakpoints } from '@/composables/appBreakpoints'
 import { useMenuStore } from '@/stores/menu'
 import { useAppI18n } from '@/composables/appI18n'
-import { useToggle } from '@vueuse/core'
+import type { AppHeaderNavMode, AppToolbarMode } from '@/types'
+
+defineEmits<{
+  toggleSlideNav: []
+  showSettings: []
+}>()
+
+const { mode = 'inline', isSlideNavOpen = true } = defineProps<{
+  isSlideNavOpen?: boolean
+  toolbarMode?: AppToolbarMode
+  mode?: AppHeaderNavMode
+}>()
 
 const { t } = useAppI18n()
 const themeVars = useThemeVars()
 const { menus } = useMenuStore()
-const { isSlideMenusShow } = storeToRefs(useMenuStore())
-const { isDesktop, isMobile } = useAppBreakpoints()
-
-// 显示或隐藏侧边菜单
-const toggleSlideMenus = useToggle(isSlideMenusShow)
 </script>
 
 <template>
@@ -37,7 +42,7 @@ const toggleSlideMenus = useToggle(isSlideMenusShow)
       </NIcon>
     </RouterLink>
 
-    <nav v-if="isDesktop" class="nav">
+    <nav v-if="mode === 'inline'" class="nav">
       <RouterLink
         v-for="menu in menus"
         :key="menu.key"
@@ -48,10 +53,10 @@ const toggleSlideMenus = useToggle(isSlideMenusShow)
         {{ typeof menu.label === 'function' ? menu.label() : menu.label }}
       </RouterLink>
     </nav>
-    <NButton v-else quaternary @click="toggleSlideMenus()" class="menu-btn">
+    <NButton v-else quaternary @click="$emit('toggleSlideNav')" class="menu-btn">
       <template #icon>
         <NIcon>
-          <IconIonCloseOutline v-if="isSlideMenusShow" />
+          <IconIonCloseOutline v-if="isSlideNavOpen" />
           <IconIonMenuSharp v-else />
         </NIcon>
       </template>
@@ -59,7 +64,7 @@ const toggleSlideMenus = useToggle(isSlideMenusShow)
       {{ t('label.menu') }}
     </NButton>
 
-    <AppToolBar :mode="isMobile ? 'dropdown' : 'list'" />
+    <AppToolBar :mode="toolbarMode" @show-settings="$emit('showSettings')" />
   </header>
 </template>
 

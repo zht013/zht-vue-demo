@@ -1,28 +1,26 @@
 <script setup lang="ts">
 import { useAppI18n } from '@/composables/appI18n'
-import { EventKeys } from '@/constants/keys'
-import { useEventBus } from '@vueuse/core'
+import type { AppToolbarMode } from '@/types'
 import { NButton, NIcon, NPopover } from 'naive-ui'
 
-defineProps<{
+defineEmits<{
+  showSettings: []
+}>()
+
+const { mode = 'inline' } = defineProps<{
   /** 显示方式 */
-  mode: 'list' | 'dropdown'
+  mode?: AppToolbarMode
 }>()
 
 const { t } = useAppI18n()
 const githubUrl = import.meta.env.VITE_GITHUB_URL
 const productionUrl = import.meta.env.VITE_PRODUCTION_URL
 const isDev = import.meta.env.DEV
-
-const eventBus = useEventBus(EventKeys.showSettings)
-const showSettings = () => {
-  eventBus.emit()
-}
 </script>
 <template>
   <LanguageSelector />
 
-  <template v-if="mode === 'list'">
+  <template v-if="mode === 'inline'">
     <NButton
       tag="a"
       :href="githubUrl"
@@ -52,7 +50,7 @@ const showSettings = () => {
       </NIcon>
     </NButton>
 
-    <NButton quaternary size="medium" :title="t('title.settings')" @click="showSettings">
+    <NButton quaternary size="medium" :title="t('title.settings')" @click="$emit('showSettings')">
       <NIcon size="2.2rem">
         <IconIonSettingsOutline />
       </NIcon>
@@ -65,7 +63,7 @@ const showSettings = () => {
     </NButton>
   </template>
   <template v-else>
-    <NPopover :show-arrow="false" trigger="click" raw>
+    <NPopover :show-arrow="false" trigger="click">
       <template #trigger>
         <NButton quaternary size="medium">
           <NIcon size="2.4rem">
@@ -111,7 +109,12 @@ const showSettings = () => {
           Production
         </NButton>
 
-        <NButton quaternary size="medium" @click="showSettings" style="justify-content: flex-start">
+        <NButton
+          quaternary
+          size="medium"
+          @click="$emit('showSettings')"
+          style="justify-content: flex-start"
+        >
           <template #icon>
             <NIcon size="2.2rem">
               <IconIonSettingsOutline />
@@ -141,7 +144,6 @@ const showSettings = () => {
   flex-flow: column;
   align-items: stretch;
   min-width: 16rem;
-  padding: 1rem 0.4rem;
   gap: 0.6rem;
 }
 </style>

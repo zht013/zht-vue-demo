@@ -13,9 +13,7 @@ class NaiveApi {
   private _dialog: DialogApi
   private _message: MessageApi
   private _notification: NotificationApi
-  private _notificationProviderProps: NotificationProviderProps = {
-    placement: 'bottom-right',
-  }
+  private _notificationProviderProps: NotificationProviderProps = {}
   private _messageProviderProps: MessageProviderProps = {}
 
   constructor() {

@@ -35,3 +35,6 @@ export type AppMenu = {
   /** 包含的子路由 */
   children?: Array<AppMenu>
 }
+
+export type AppToolbarMode = 'inline' | 'dropdown'
+export type AppHeaderNavMode = 'inline' | 'slide'
