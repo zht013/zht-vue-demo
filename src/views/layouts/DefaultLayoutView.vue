@@ -111,6 +111,7 @@ useEventBus(EventKeys.showSettings).on(() => {
   position: sticky;
   top: var(--app-header-height);
   z-index: 2;
+  margin-bottom: 1rem;
 }
 
 .version-info {
