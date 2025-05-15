@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/zht013/zht-vue-demo/compare/v1.4.0...v1.4.1) (2025-05-15)
+
+
+### Bug Fixes
+
+* fix vercel deploy warning ([47244db](https://github.com/zht013/zht-vue-demo/commit/47244db721b630088c82334e88e96612ab122184))
+
 ## [1.4.0](https://github.com/zht013/zht-vue-demo/compare/v1.3.1...v1.4.0) (2025-05-15)
 
 
