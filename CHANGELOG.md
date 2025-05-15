@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.4.0](https://github.com/zht013/zht-vue-demo/compare/v1.3.1...v1.4.0) (2025-05-15)
+
+
+### Features
+
+* add parallax effect ([79ca910](https://github.com/zht013/zht-vue-demo/commit/79ca91085c80820a15715d933deeb342716fcd5c))
+* add route history bar ([e9a2447](https://github.com/zht013/zht-vue-demo/commit/e9a24476a23aae861027322b48197dae54673b88))
+* add settings for route history ([85e19e7](https://github.com/zht013/zht-vue-demo/commit/85e19e7b9530c8df9698abf60fd4bd5fd2fb50f9))
+* integration echarts ([f369ccb](https://github.com/zht013/zht-vue-demo/commit/f369ccb3efad70b2b5369a15c317054560630ca9))
+
+
+### Bug Fixes
+
+* fix refresh view progress bar do not display ([b299d2f](https://github.com/zht013/zht-vue-demo/commit/b299d2fc75e176d2bb1d80fbe225d75d0d0f09bf))
+* fix responsive issue for max content size, change layout ([04ea486](https://github.com/zht013/zht-vue-demo/commit/04ea4864730e778975d89d7b0623a03e992ca146))
+* menu icon switch ([e55d565](https://github.com/zht013/zht-vue-demo/commit/e55d565ef4064803bf66e9fc19f06618eaedaaa6))
+
 ## [1.3.1](https://github.com/zht013/zht-vue-demo/compare/v1.3.0...v1.3.1) (2025-05-10)
 
 
