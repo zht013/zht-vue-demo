@@ -19,6 +19,7 @@ const { tilt: bgTilt, roll: bgRoll } = useParallax(parallaxBgRef)
     :style="{
       '--bg-color': themeVars.bgColor,
       '--border-color': themeVars.borderColor,
+      '--box-shadow': themeVars.boxShadow4,
     }"
   >
     <NCard
@@ -79,6 +80,7 @@ const { tilt: bgTilt, roll: bgRoll } = useParallax(parallaxBgRef)
 <style scoped>
 .card {
   margin-bottom: 4rem;
+  box-shadow: var(--box-shadow);
 }
 
 .card-wrapper {

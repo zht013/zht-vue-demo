@@ -7,6 +7,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "v-dev": "vercel dev",
+    "dev:full": "run-p dev v-dev",
     "build": "run-s \"build-only {@}\" type-check --",
     "build:staging": "run-s \"build-staging-only {@}\" type-check --",
     "preview": "vite preview",
@@ -22,6 +24,8 @@
   },
   "dependencies": {
     "@vueuse/core": "^13.1.0",
+    "echarts": "^5.6.0",
+    "ofetch": "^1.4.1",
     "pinia": "^3.0.1",
     "vue": "^3.5.13",
     "vue-i18n": "^11.1.3",
@@ -37,6 +41,7 @@
     "@tsconfig/node22": "^22.0.1",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.14.0",
+    "@vercel/node": "^5.1.16",
     "@vite-pwa/assets-generator": "^1.0.0",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vitest/eslint-plugin": "^1.1.39",
@@ -45,6 +50,7 @@
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.7.0",
     "browserslist": "^4.24.4",
+    "dotenv": "^16.5.0",
     "eslint": "^9.22.0",
     "eslint-plugin-playwright": "^2.2.0",
     "eslint-plugin-vue": "~10.0.0",

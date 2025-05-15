@@ -36,3 +36,5 @@ playwright-report/
 # Auto-generated TypeScript declaration files
 auto-imports.d.ts
 components.d.ts
+.vercel
+.env*.local

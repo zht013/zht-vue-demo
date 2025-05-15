@@ -11,6 +11,11 @@ interface ImportMetaEnv {
   readonly VITE_GITHUB_URL: string
   readonly VITE_PRODUCTION_URL: string
   readonly VITE_DEFAULT_LOCALE: string
+  readonly GITHUB_API_TOKEN: string
+  readonly VITE_GITHUB_PROXY_BASE_URL: string
+  readonly VITE_GITHUB_PROXY_SERVER: string
+  readonly VITE_APP_API_BASE_URL: string
+  readonly VITE_APP_API_SERVER: string
 }
 
 interface ImportMeta {

@@ -14,7 +14,9 @@ class NaiveApi {
   private _message: MessageApi
   private _notification: NotificationApi
   private _notificationProviderProps: NotificationProviderProps = {}
-  private _messageProviderProps: MessageProviderProps = {}
+  private _messageProviderProps: MessageProviderProps = {
+    duration: 3000,
+  }
 
   constructor() {
     const api = createDiscreteApi(['message', 'dialog', 'notification', 'loadingBar'], {

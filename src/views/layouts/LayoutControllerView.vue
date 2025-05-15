@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { LayoutType } from '@/types'
-import { layoutMap } from '@/constants/layout'
+import { layoutMap } from '@/constants/data'
 import { useEventBus } from '@vueuse/core'
 import { EventKeys } from '@/constants/keys'
 import { useThemeVars } from 'naive-ui'

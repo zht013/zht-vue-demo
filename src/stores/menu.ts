@@ -61,11 +61,11 @@ export const useMenuStore = defineStore('menu', () => {
       if (sourceRoute.meta?.isMenu) {
         const menuKey =
           sourceRoute.meta?.index?.toString() ?? sourceRoutes.indexOf(sourceRoute).toString()
-        const resolvedSourceRoute = router.resolve(sourceRoute)
+        const resolvedSourceRoute = sourceRoute.component ? router.resolve(sourceRoute) : undefined
         const menu: AppMenu = {
           key: parentMenu ? `${parentMenu.key}-${menuKey}` : menuKey,
           label: sourceRoute.meta?.label ?? '',
-          path: resolvedSourceRoute.fullPath.replace(localePath, ''),
+          path: resolvedSourceRoute?.fullPath.replace(localePath, ''),
           routeName: sourceRoute.name,
           isGroup: sourceRoute.component ? false : true,
         }

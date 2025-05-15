@@ -29,9 +29,6 @@ export default defineConfig(
 
     return {
       base: env.VITE_BASE_URL,
-      server: {
-        port: 8001,
-      },
       define: {
         __APP_VERSION__: JSON.stringify(version),
         __GIT_HASH__: JSON.stringify(gitHash),
@@ -61,6 +58,29 @@ export default defineConfig(
       },
       build: {
         cssMinify: 'lightningcss',
+      },
+      server: {
+        // 指定服务器应该监听哪个 IP 地址。 如果将此设置为 0.0.0.0 或者 true 将监听所有地址，包括局域网和公网地址
+        // host: true,
+        port: 8001,
+        proxy: {
+          [env.VITE_GITHUB_PROXY_BASE_URL]: {
+            target: env.VITE_GITHUB_PROXY_SERVER,
+            changeOrigin: true,
+            rewrite: (path) => {
+              const targetUrl = URL.parse(path, 'http://dummy')!
+              const targetParams = targetUrl.searchParams
+              const targetPath = targetUrl.pathname.replace(
+                RegExp(`^${env.VITE_GITHUB_PROXY_BASE_URL}/`),
+                '',
+              )
+
+              targetParams.append('endpoint', targetPath)
+
+              return `/api/github-proxy?${targetParams.toString()}`
+            },
+          },
+        },
       },
     }
   },
