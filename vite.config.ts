@@ -69,15 +69,8 @@ export default defineConfig(
             changeOrigin: true,
             rewrite: (path) => {
               const targetUrl = URL.parse(path, 'http://dummy')!
-              const targetParams = targetUrl.searchParams
-              const targetPath = targetUrl.pathname.replace(
-                RegExp(`^${env.VITE_GITHUB_PROXY_BASE_URL}/`),
-                '',
-              )
 
-              targetParams.append('endpoint', targetPath)
-
-              return `/api/github-proxy?${targetParams.toString()}`
+              return `/api/github-proxy?${targetUrl.searchParams.toString()}`
             },
           },
         },

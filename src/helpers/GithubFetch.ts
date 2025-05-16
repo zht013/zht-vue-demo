@@ -7,6 +7,10 @@ interface GithubProxyErrorInfo {
 
 const githubFetch = ofetch.create({
   baseURL: import.meta.env.VITE_GITHUB_PROXY_BASE_URL,
+  onRequest({ request, options }) {
+    options.query = options.query || {}
+    options.query.endpoint = request
+  },
   onRequestError({ request, error }) {
     appMessage.error(`Request failure: ${error.message}, at ${request}`)
   },
