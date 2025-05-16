@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.2](https://github.com/zht013/zht-vue-demo/compare/v1.4.1...v1.4.2) (2025-05-16)
+
+
+### Bug Fixes
+
+* fix github proxy url is not correct for production ([31f297d](https://github.com/zht013/zht-vue-demo/commit/31f297de4c918ad440ef3c19dc11c1583c36f6ce))
+
 ## [1.4.1](https://github.com/zht013/zht-vue-demo/compare/v1.4.0...v1.4.1) (2025-05-15)
 
 
