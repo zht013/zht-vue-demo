@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.3](https://github.com/zht013/zht-vue-demo/compare/v1.4.2...v1.4.3) (2025-05-17)
+
+
+### Bug Fixes
+
+* fix github api url issue ([85a0708](https://github.com/zht013/zht-vue-demo/commit/85a070837235389eda7f7df3e1d7f890aa94bfab))
+* fix ofetch retry and github api url issue ([cbdb6c3](https://github.com/zht013/zht-vue-demo/commit/cbdb6c38db4d4ad5de88994e51b87d6762c9922f))
+
 ## [1.4.2](https://github.com/zht013/zht-vue-demo/compare/v1.4.1...v1.4.2) (2025-05-16)
 
 
