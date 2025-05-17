@@ -10,6 +10,8 @@ const githubFetch = ofetch.create({
   onRequest({ request, options }) {
     options.query = options.query || {}
     options.query.endpoint = request
+
+    request = import.meta.env.VITE_GITHUB_PROXY_BASE_URL
   },
   onRequestError({ request, error }) {
     appMessage.error(`Request failure: ${error.message}, at ${request}`)
