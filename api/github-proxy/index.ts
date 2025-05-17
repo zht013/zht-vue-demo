@@ -1,9 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import dotenv from 'dotenv'
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  dotenv.config({ path: '.env.local' })
-
   // const allowedOrigins = [
   //   'https://zht-vue-demo.vercel.app',
   //   'http://localhost:8001',
