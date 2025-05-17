@@ -109,7 +109,9 @@ if (!isDev) {
 
   // 动态缓存 API 请求，使用 NetworkFirst 策略
   registerRoute(
-    ({ url }) => url.pathname.startsWith('/api/'),
+    ({ url }) =>
+      url.pathname.startsWith(import.meta.env.VITE_GITHUB_PROXY_BASE_URL + '/') ||
+      url.pathname.startsWith(import.meta.env.VITE_APP_API_BASE_URL + '/'),
     new NetworkFirst({
       cacheName: 'api-cache',
       networkTimeoutSeconds: 10,
