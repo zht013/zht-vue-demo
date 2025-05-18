@@ -78,52 +78,52 @@ registerRoute(
   }),
 )
 
-if (!isDev) {
-  // 缓存静态资源（CSS、JS），使用 Stale While Revalidate 策略
-  registerRoute(
-    ({ request }) => ['style', 'script', 'worker'].includes(request.destination),
-    new StaleWhileRevalidate({
-      cacheName: 'static-resources',
-      plugins: [
-        new ExpirationPlugin({
-          maxEntries: 100,
-          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 天
-        }),
-      ],
-    }),
-  )
+// if (!isDev) {
+// 缓存静态资源（CSS、JS），使用 Stale While Revalidate 策略
+registerRoute(
+  ({ request }) => ['style', 'script', 'worker'].includes(request.destination),
+  new StaleWhileRevalidate({
+    cacheName: 'static-resources',
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 100,
+        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 天
+      }),
+    ],
+  }),
+)
 
-  // 动态缓存图片，使用 CacheFirst 策略
-  registerRoute(
-    ({ request }) => request.destination === 'image',
-    new CacheFirst({
-      cacheName: 'image-cache',
-      plugins: [
-        new ExpirationPlugin({
-          maxEntries: 50,
-          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 天
-        }),
-      ],
-    }),
-  )
+// 动态缓存图片，使用 CacheFirst 策略
+registerRoute(
+  ({ request }) => request.destination === 'image',
+  new CacheFirst({
+    cacheName: 'image-cache',
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 50,
+        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 天
+      }),
+    ],
+  }),
+)
 
-  // 动态缓存 API 请求，使用 NetworkFirst 策略
-  registerRoute(
-    ({ url }) =>
-      url.pathname.startsWith(import.meta.env.VITE_GITHUB_PROXY_BASE_URL + '/') ||
-      url.pathname.startsWith(import.meta.env.VITE_APP_API_BASE_URL + '/'),
-    new NetworkFirst({
-      cacheName: 'api-cache',
-      networkTimeoutSeconds: 10,
-      plugins: [
-        new ExpirationPlugin({
-          maxEntries: 100,
-          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 天
-        }),
-      ],
-    }),
-  )
-}
+// 动态缓存 API 请求，使用 NetworkFirst 策略
+registerRoute(
+  ({ url }) =>
+    url.pathname.startsWith(import.meta.env.VITE_GITHUB_PROXY_BASE_URL + '/') ||
+    url.pathname.startsWith(import.meta.env.VITE_APP_API_BASE_URL + '/'),
+  new NetworkFirst({
+    cacheName: 'api-cache',
+    networkTimeoutSeconds: 10,
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 100,
+        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 天
+      }),
+    ],
+  }),
+)
+// }
 
 if (isDev) {
   self.skipWaiting()
