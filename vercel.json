@@ -1,14 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/*.ts",
-      "use": "@vercel/node",
-      "config": {
-        "runtime": "nodejs22.x"
-      }
-    }
-  ],
   "headers": [
     {
       "source": "/(.*).html",
