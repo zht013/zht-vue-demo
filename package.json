@@ -4,6 +4,7 @@
   "license": "MIT",
   "description": "A Vue 3 + Vite 4 + TypeScript + Pinia + Naive UI + Playwright + Vitest + ESLint + Prettier + Commitlint + Husky + Vercel demo project",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "v-dev": "vercel dev",
