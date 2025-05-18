@@ -109,9 +109,25 @@ registerRoute(
 
 // 动态缓存 API 请求，使用 NetworkFirst 策略
 registerRoute(
-  ({ url }) =>
-    url.pathname.startsWith(import.meta.env.VITE_GITHUB_PROXY_BASE_URL + '/') ||
-    url.pathname.startsWith(import.meta.env.VITE_APP_API_BASE_URL + '/'),
+  ({ url }) => {
+    // 取出环境变量的 pathname 部分
+    const githubProxyPath = (() => {
+      try {
+        return new URL(import.meta.env.VITE_GITHUB_PROXY_BASE_URL).pathname
+      } catch {
+        return import.meta.env.VITE_GITHUB_PROXY_BASE_URL
+      }
+    })()
+    const appApiPath = (() => {
+      try {
+        return new URL(import.meta.env.VITE_APP_API_BASE_URL).pathname
+      } catch {
+        return import.meta.env.VITE_APP_API_BASE_URL
+      }
+    })()
+
+    return url.pathname.startsWith(githubProxyPath) || url.pathname.startsWith(appApiPath)
+  },
   new NetworkFirst({
     cacheName: 'api-cache',
     networkTimeoutSeconds: 10,
