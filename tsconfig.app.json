@@ -21,8 +21,7 @@
       "vite-plugin-pwa/vue",
       "vite-plugin-pwa/info",
       "unplugin-icons/types/vue",
-      "@intlify/unplugin-vue-i18n/messages",
-      "@vercel/node"
+      "@intlify/unplugin-vue-i18n/messages"
     ]
   }
 }
