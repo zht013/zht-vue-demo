@@ -213,7 +213,7 @@ const tableColumns = [
 
 <template>
   <div
-    class="v-root"
+    class="dashboard-root"
     :style="{
       '--box-shadow': themeVars.boxShadow4,
     }"
@@ -275,7 +275,7 @@ const tableColumns = [
 </template>
 
 <style scoped>
-.v-root {
+.dashboard-root {
   & > div {
     margin-bottom: 1.8rem;
   }

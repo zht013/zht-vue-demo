@@ -63,12 +63,12 @@ label,
 :slotted(label) {
   display: block;
   font-weight: 600;
-  padding: 0.6rem 1rem 0 1.6rem;
+  padding: 1.6rem 1rem 0.2rem 1.6rem;
 }
 
 a {
   display: block;
-  padding: 0.6rem 1.6rem;
+  padding: 0.3rem 1.6rem;
   border-radius: 0.4rem;
 
   &:hover {

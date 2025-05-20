@@ -6,7 +6,7 @@ export function usePullToRefresh(onRefresh: () => Promise<void>) {
   let isScrolling = false
   const isPullEnd = refAutoReset(false, 300)
   const pullDistance = ref(0)
-  const pullThreshold = 21
+  let pullThreshold = 18
   let ratio = 0.12
 
   const { arrivedState } = useWindowScroll()
@@ -63,7 +63,8 @@ export function usePullToRefresh(onRefresh: () => Promise<void>) {
   }
 
   function handleTouchStart(e: TouchEvent) {
-    ratio = 0.12
+    pullThreshold = 21
+    ratio = 0.1
 
     setStartState(e.touches[0].clientY)
   }
@@ -83,7 +84,8 @@ export function usePullToRefresh(onRefresh: () => Promise<void>) {
   function handleWheel(e: WheelEvent) {
     if (!arrivedState.top) return
 
-    ratio = 0.56
+    pullThreshold = 18
+    ratio = 0.42
 
     if (wheelEnded) {
       overScrolling()

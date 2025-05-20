@@ -25,5 +25,7 @@ declare module 'vue-router' {
     isMenu?: boolean
     /** layout */
     layout?: LayoutType
+    /** 是否全屏显示 view page */
+    isFullScreen?: boolean
   }
 }

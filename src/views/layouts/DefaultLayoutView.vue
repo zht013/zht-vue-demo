@@ -5,17 +5,19 @@ import { useAppBreakpoints } from '@/composables/appBreakpoints'
 import { useAppStore } from '@/stores/app'
 import { useMenuStore } from '@/stores/menu'
 import AppMenus from './components/AppMenus.vue'
-import { useEventListener } from '@vueuse/core'
+import { useEventBus, useEventListener } from '@vueuse/core'
+import { EventKeys } from '@/constants/keys'
 
 defineProps<{
   isRefreshView: boolean
 }>()
 
+const route = useRoute()
 const themeVars = useThemeVars()
 const { isDesktop, isTablet, isMobile } = useAppBreakpoints()
+const { routeHistoryEnabled } = storeToRefs(useAppStore())
 
 // route history
-const { routeHistoryEnabled } = storeToRefs(useAppStore())
 const AppRouteHistory = defineAsyncComponent(() => import('./components/AppRouteHistory.vue'))
 
 // settings viewer
@@ -30,9 +32,10 @@ const handleShowSettings = () => {
 // slide nav aside
 const asideElement = useTemplateRef('aside')
 const menuStore = useMenuStore()
-const isSlideNavOpen = ref(isDesktop.value)
+const viewFullScreen = computed(() => !!route.meta.isFullScreen)
+const isSlideNavOpen = ref(isDesktop.value && !viewFullScreen.value)
 const isRootSubMenus = computed(() => isDesktop.value)
-const isFloatAside = computed(() => !isDesktop.value)
+const isFixAside = computed(() => !isDesktop.value || viewFullScreen.value)
 const targetMenus = computed(() => {
   return isRootSubMenus.value ? (menuStore.rootMenu?.children ?? []) : menuStore.menus
 })
@@ -48,18 +51,18 @@ const dynamicAsideWidth = computed(() => {
 const asideClass = computed<{
   animate: boolean
   show: boolean
-  float: boolean
+  fixed: boolean
 }>((previous) => {
   return {
-    animate: previous?.float == isFloatAside.value,
-    show: isSlideNavOpen.value,
-    float: isFloatAside.value,
+    animate: previous?.fixed == isFixAside.value, // 是否执行 aside 的打开和关闭动画
+    show: isSlideNavOpen.value, // 是否显示aside
+    fixed: isFixAside.value, // aside 的显示模式
   }
 })
 const handleSlideToggle = async (state?: boolean) => {
   isSlideNavOpen.value = state ?? !isSlideNavOpen.value
 
-  if (isFloatAside.value) {
+  if (isFixAside.value) {
     if (isSlideNavOpen.value) {
       document.documentElement.style.overflow = 'hidden'
     } else {
@@ -67,17 +70,33 @@ const handleSlideToggle = async (state?: boolean) => {
     }
   }
 }
+// 在窗口大小改变时，避免 aside 在关闭状态下执行动画，其实不算一个真正的 case
 useEventListener(asideElement, 'transitionend', (e: TransitionEvent) => {
   if (e.propertyName === 'margin-left') {
     asideElement.value?.classList.remove('animate')
   }
 })
 
+// 开始导航时是否关闭 aside
 onBeforeRouteUpdate(() => {
-  if (isFloatAside.value && isSlideNavOpen.value) {
+  if (isFixAside.value && isSlideNavOpen.value && (!isDesktop || !viewFullScreen)) {
     handleSlideToggle(false)
   }
 })
+
+useEventBus(EventKeys.toggleAside).on((state) => {
+  handleSlideToggle(state)
+})
+
+watch(
+  () => route.meta.isFullScreen,
+  async (value) => {
+    if (value) {
+      await nextTick()
+      handleSlideToggle(false)
+    }
+  },
+)
 </script>
 
 <template>
@@ -90,14 +109,14 @@ onBeforeRouteUpdate(() => {
   >
     <AppHeader
       class="header"
-      :mode="isFloatAside ? 'slide' : 'inline'"
+      :mode="isDesktop ? 'inline' : 'slide'"
       :is-slide-nav-open="isSlideNavOpen"
       :toolbar-mode="isMobile ? 'dropdown' : 'inline'"
       @show-settings="handleShowSettings"
       @toggle-slide-nav="handleSlideToggle"
     />
 
-    <div class="main">
+    <div class="content">
       <aside
         ref="aside"
         class="aside"
@@ -119,33 +138,43 @@ onBeforeRouteUpdate(() => {
           </AppMenus>
         </nav>
 
-        <div v-if="isFloatAside" class="backdrop" @click="handleSlideToggle()"></div>
-        <button v-else class="slide-btn" @click="handleSlideToggle()" title="">
+        <div v-if="isFixAside" class="backdrop" @click="handleSlideToggle()"></div>
+        <button v-if="isDesktop" class="slide-btn" @click="handleSlideToggle()" title="">
           <IconIonChevronForward v-if="!isSlideNavOpen" /><IconIonChevronBack v-else />
         </button>
       </aside>
 
       <div
-        class="content"
+        class="main-con"
         :style="{
           '--bg-color': themeVars.baseColor,
         }"
       >
-        <div
+        <AppRouteHistory
           v-if="routeHistoryEnabled"
-          class="route-tabs"
           :style="{
-            '--tabs-height': themeVars.routeHistoryHeight,
+            position: 'sticky',
+            top: `var(--app-header-height)`,
+            zIndex: 2,
+            marginBottom: '1rem',
+            height: themeVars.routeHistoryHeight,
+            display: viewFullScreen ? 'none' : 'flex',
           }"
-        >
-          <AppRouteHistory :height="themeVars.routeHistoryHeight" />
-        </div>
+        />
 
-        <RouterView v-slot="{ Component }">
-          <Transition name="default" mode="out-in">
-            <component v-if="!isRefreshView" :is="Component" />
-          </Transition>
-        </RouterView>
+        <main>
+          <RouterView v-slot="{ Component }">
+            <Transition name="default" mode="out-in">
+              <component
+                v-if="!isRefreshView"
+                :is="Component"
+                :class="{
+                  'view-full-screen': viewFullScreen,
+                }"
+              />
+            </Transition>
+          </RouterView>
+        </main>
       </div>
     </div>
 
@@ -176,7 +205,7 @@ onBeforeRouteUpdate(() => {
   height: var(--app-header-height);
 }
 
-.main {
+.content {
   flex: 1;
   display: flex;
   flex-flow: row wrap;
@@ -213,8 +242,8 @@ onBeforeRouteUpdate(() => {
     }
   }
 
-  &.float {
-    position: absolute;
+  &.fixed {
+    position: fixed;
     z-index: 4;
 
     & > .nav {
@@ -285,19 +314,18 @@ onBeforeRouteUpdate(() => {
 }
 /* #endregion */
 
-.content {
+.main-con {
   flex: 1;
   padding: 1rem;
   background: var(--bg-color);
   max-width: min(100vw, 100%);
 }
 
-.route-tabs {
-  position: sticky;
-  top: var(--app-header-height);
-  z-index: 2;
-  margin-bottom: 1rem;
-  height: var(--tabs-height);
+.view-full-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .version-info {

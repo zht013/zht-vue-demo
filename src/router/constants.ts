@@ -10,8 +10,13 @@ export const RouteName = {
   VUE3: {
     ROOT: Symbol(),
     INTRODUCE: Symbol(),
-    ANIMATION: {
+    VISUAL: {
       PARALLAX: Symbol(),
+      SCROLL_PARALLAX: Symbol(),
+    },
+    WEB_DEVELOPMENT: {
+      SOCKET: Symbol(),
+      WEB_PUSH: Symbol(),
     },
   },
   ECHARTS: {

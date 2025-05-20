@@ -15,8 +15,8 @@ import { useDebounceFn, useEventBus, useOnline, useWindowScroll, useWindowSize }
 import { lightTheme } from 'naive-ui'
 import { EventKeys } from './constants/keys'
 import appDarkThemeOverrides from './theme/dark'
-import { usePullToRefresh } from './composables/appPullToRefresh'
 import appLoadingBar from './helpers/AppLoadingBar'
+import { useAppStore } from './stores/app'
 
 // PWA 相关
 const { updateServiceWorker } = useRegisterSW({
@@ -91,9 +91,7 @@ const refreshViewDebounce = useDebounceFn(async () => {
   await nextTick()
   isRefreshView.value = false
 }, 500)
-const { distance, isPullEnd } = usePullToRefresh(() => {
-  return refreshView()
-})
+
 useEventBus(EventKeys.refreshView).on(() => {
   refreshView()
 })
@@ -107,6 +105,10 @@ async function refreshView() {
 onMounted(() => {
   document.getElementById('app-spinner')?.remove()
 })
+
+// pull to refresh
+const { pullToRefreshEnabled } = storeToRefs(useAppStore())
+const AppPullToRefresh = defineAsyncComponent(() => import('@/components/AppPullToRefresh.vue'))
 </script>
 
 <template>
@@ -123,17 +125,7 @@ onMounted(() => {
       }"
     ></div>
 
-    <div
-      class="pull-refresh"
-      :class="{
-        animate: isPullEnd,
-      }"
-      :style="{
-        '--pull-distance': distance,
-      }"
-    >
-      刷新...
-    </div>
+    <AppPullToRefresh v-if="pullToRefreshEnabled" :refresh-callback="refreshView" />
 
     <RouterView v-slot="{ Component }">
       <component :is="Component" :is-refresh-view="isRefreshView" />
@@ -154,20 +146,5 @@ onMounted(() => {
   z-index: 10;
   transform: scale(var(--doc-scroll-percentage), 1);
   transform-origin: 0;
-}
-
-.pull-refresh {
-  position: fixed;
-  top: -2rem;
-  left: 0;
-  text-align: center;
-  width: 100%;
-  z-index: 100;
-  opacity: 0.6;
-  transform: translateY(calc(var(--pull-distance) * 1px));
-
-  &.animate {
-    transition: transform 200ms ease;
-  }
 }
 </style>

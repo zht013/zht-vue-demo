@@ -13,8 +13,11 @@ defineEmits<{
 }>()
 
 const { mode = 'inline', isSlideNavOpen = true } = defineProps<{
+  /** 侧边栏的打开状态，控制 header 显示哪个图标 */
   isSlideNavOpen?: boolean
+  /** toolbar 的显示模式 */
   toolbarMode?: AppToolbarMode
+  /** header 中导航的显示模式 */
   mode?: AppHeaderNavMode
 }>()
 

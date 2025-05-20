@@ -7,10 +7,6 @@ import { useAppI18n } from '@/composables/appI18n'
 import { EventKeys } from '@/constants/keys'
 import { useAppBreakpoints } from '@/composables/appBreakpoints'
 
-defineProps<{
-  height?: string
-}>()
-
 const router = useRouter()
 const { t } = useAppI18n()
 const { isDesktop } = useAppBreakpoints()
@@ -218,7 +214,6 @@ const dropdownOptions = computed<DropdownOption[]>(() => [
     :style="{
       '--border-color': themeVars.borderColor,
       '--bg-color': themeVars.bgColor,
-      '--root-height': height,
     }"
   >
     <NButton v-if="showLeftButton" @click="handleLeftBtnClick" class="left-btn">
@@ -287,7 +282,6 @@ const dropdownOptions = computed<DropdownOption[]>(() => [
   border-radius: 0.4rem;
   border: 1px solid var(--border-color);
   backdrop-filter: blur(0.8rem);
-  height: var(--root-height);
 }
 
 .tabs-wrapper {

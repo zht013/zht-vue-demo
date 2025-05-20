@@ -14,7 +14,7 @@ export default {
   redirect: { name: RouteName.VUE3.INTRODUCE },
   children: [
     {
-      path: 'introduction',
+      path: 'intro',
       alias: '',
       name: RouteName.VUE3.INTRODUCE,
       meta: {
@@ -24,20 +24,57 @@ export default {
       component: () => import('@/views/vue3/HomeView.vue'),
     },
     {
-      path: 'animation',
+      path: 'visual',
       meta: {
-        label: () => i18n.global.t('nav.vue3.animation.label'),
+        label: () => i18n.global.t('nav.vue3.visual.label'),
         isMenu: true,
       },
       children: [
         {
-          path: 'parallax',
-          name: RouteName.VUE3.ANIMATION.PARALLAX,
+          path: 'mouse-parallax',
+          name: RouteName.VUE3.VISUAL.PARALLAX,
           meta: {
-            label: () => i18n.global.t('nav.vue3.animation.parallax'),
+            label: () => i18n.global.t('nav.vue3.visual.mouseParallax'),
             isMenu: true,
           },
-          component: () => import('@/views/vue3/ParallaxView.vue'),
+          component: () => import('@/views/vue3/visual/MouseParallaxView.vue'),
+        },
+        {
+          path: 'scroll-parallax',
+          name: RouteName.VUE3.VISUAL.SCROLL_PARALLAX,
+          meta: {
+            label: () => i18n.global.t('nav.vue3.visual.scrollParallax'),
+            isMenu: true,
+            isFullScreen: true,
+          },
+          component: () => import('@/views/vue3/visual/ScrollParallaxView.vue'),
+        },
+      ],
+    },
+    {
+      path: 'web-api',
+      meta: {
+        label: () => i18n.global.t('nav.vue3.webDevelopment.label'),
+        isMenu: true,
+      },
+      children: [
+        {
+          path: 'socket',
+          name: RouteName.VUE3.WEB_DEVELOPMENT.SOCKET,
+          meta: {
+            label: () => i18n.global.t('nav.vue3.webDevelopment.socket'),
+            isMenu: true,
+          },
+          component: () => import('@/views/vue3/web-development/WebSocketView.vue'),
+        },
+        {
+          path: 'web-push',
+          name: RouteName.VUE3.WEB_DEVELOPMENT.WEB_PUSH,
+          meta: {
+            label: () => i18n.global.t('nav.vue3.webDevelopment.webPush'),
+            isMenu: true,
+          },
+          component: () => import('@/views/vue3/web-development/WebPushView.vue'),
         },
       ],
     },

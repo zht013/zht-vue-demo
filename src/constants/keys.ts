@@ -6,8 +6,10 @@ export class EventKeys {
   static readonly layoutChanged: EventBusKey<LayoutType> = Symbol()
   static readonly themeChanged: EventBusKey<GlobalTheme> = Symbol()
   static readonly refreshView: EventBusKey<unknown> = Symbol()
+  static readonly toggleAside: EventBusKey<boolean> = Symbol()
 }
 
 export class LocalstorageKeys {
   static readonly routeHistory = 'route-history-enabled'
+  static readonly pullToRefresh = 'pull-to-refresh'
 }

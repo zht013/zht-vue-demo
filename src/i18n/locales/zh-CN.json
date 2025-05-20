@@ -7,8 +7,9 @@
     "imgParallax": "图片",
     "bgParallax": "背景图片",
     "routeHistory": "路由历史",
-    "enable": "启用",
-    "disable": "禁用"
+    "pullToRefresh": "下拉刷新",
+    "enable": "已启用",
+    "disable": "已禁用"
   },
   "title": {
     "language": "语言",
@@ -22,9 +23,15 @@
       "label": "首页",
       "start": "开始",
       "introduction": "简介",
-      "animation": {
-        "label": "动画效果",
-        "parallax": "视差效果"
+      "visual": {
+        "label": "视觉效果",
+        "mouseParallax": "鼠标视差",
+        "scrollParallax": "滚动视差"
+      },
+      "webDevelopment": {
+        "label": "Web 技术",
+        "socket": "Web Socket",
+        "webPush": "Web Push"
       }
     },
     "d3": {

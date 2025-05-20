@@ -7,8 +7,9 @@
     "imgParallax": "Image",
     "bgParallax": "Background Image",
     "routeHistory": "Route History",
-    "enable": "Enable",
-    "disable": "Disable"
+    "pullToRefresh": "Pull To Refresh",
+    "enable": "Enabled",
+    "disable": "Disabled"
   },
   "title": {
     "language": "Language",
@@ -22,9 +23,15 @@
       "label": "Home",
       "start": "Start",
       "introduction": "Introduction",
-      "animation": {
-        "label": "Animation",
-        "parallax": "Parallax Effect"
+      "visual": {
+        "label": "Visual Effect",
+        "mouseParallax": "Mouse Parallax",
+        "scrollParallax": "Scroll Parallax"
+      },
+      "webDevelopment": {
+        "label": "Web Technology",
+        "socket": "Web Socket",
+        "webPush": "Web Push"
       }
     },
     "d3": {
