@@ -22,14 +22,7 @@ const { tilt: bgTilt, roll: bgRoll } = useParallax(parallaxBgRef)
       '--box-shadow': themeVars.boxShadow4,
     }"
   >
-    <NCard
-      :title="$t('label.imgParallax')"
-      :style="{
-        '--img-tilt': tilt,
-        '--img-roll': roll,
-      }"
-      class="card"
-    >
+    <NCard :title="$t('label.imgParallax')" class="card">
       <div ref="parallaxRef" class="card-wrapper">
         <div
           :style="{
@@ -57,14 +50,7 @@ const { tilt: bgTilt, roll: bgRoll } = useParallax(parallaxBgRef)
       </div>
     </NCard>
 
-    <NCard
-      :title="$t('label.bgParallax')"
-      :style="{
-        '--bg-tilt': bgTilt,
-        '--bg-roll': bgRoll,
-      }"
-      class="card"
-    >
+    <NCard :title="$t('label.bgParallax')" class="card">
       <div ref="parallaxBgRef" class="card-wrapper bg-card">
         <div
           :style="{

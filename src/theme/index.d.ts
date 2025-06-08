@@ -8,6 +8,5 @@ declare module 'naive-ui' {
     appHeaderHeight?: string
     appAsideWidth?: string
     backdropColor?: string
-    routeHistoryHeight?: string
   }
 }

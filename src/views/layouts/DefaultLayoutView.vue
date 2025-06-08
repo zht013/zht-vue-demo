@@ -5,7 +5,7 @@ import { useAppBreakpoints } from '@/composables/appBreakpoints'
 import { useAppStore } from '@/stores/app'
 import { useMenuStore } from '@/stores/menu'
 import AppMenus from './components/AppMenus.vue'
-import { useEventBus, useEventListener } from '@vueuse/core'
+import { useEventBus, useEventListener, useScrollLock } from '@vueuse/core'
 import { EventKeys } from '@/constants/keys'
 
 defineProps<{
@@ -30,9 +30,14 @@ const handleShowSettings = () => {
 }
 
 // slide nav aside
+const documentScrollLocked = useScrollLock(document.documentElement)
 const asideElement = useTemplateRef('aside')
 const menuStore = useMenuStore()
-const viewFullScreen = computed(() => !!route.meta.isFullScreen)
+const prevViewFullScreen = ref<boolean | undefined>(false)
+const viewFullScreen = computed<boolean>((previous) => {
+  prevViewFullScreen.value = previous
+  return !!route.meta.isFullScreen
+})
 const isSlideNavOpen = ref(isDesktop.value && !viewFullScreen.value)
 const isRootSubMenus = computed(() => isDesktop.value)
 const isFixAside = computed(() => !isDesktop.value || viewFullScreen.value)
@@ -63,11 +68,7 @@ const handleSlideToggle = async (state?: boolean) => {
   isSlideNavOpen.value = state ?? !isSlideNavOpen.value
 
   if (isFixAside.value) {
-    if (isSlideNavOpen.value) {
-      document.documentElement.style.overflow = 'hidden'
-    } else {
-      document.documentElement.style.removeProperty('overflow')
-    }
+    documentScrollLocked.value = isSlideNavOpen.value
   }
 }
 // 在窗口大小改变时，避免 aside 在关闭状态下执行动画，其实不算一个真正的 case
@@ -92,8 +93,10 @@ watch(
   () => route.meta.isFullScreen,
   async (value) => {
     if (value) {
-      await nextTick()
+      // await nextTick()
       handleSlideToggle(false)
+    } else {
+      documentScrollLocked.value = false
     }
   },
 )
@@ -150,28 +153,24 @@ watch(
           '--bg-color': themeVars.baseColor,
         }"
       >
-        <AppRouteHistory
+        <div
           v-if="routeHistoryEnabled"
+          class="route-history"
           :style="{
-            position: 'sticky',
-            top: `var(--app-header-height)`,
-            zIndex: 2,
-            marginBottom: '1rem',
-            height: themeVars.routeHistoryHeight,
-            display: viewFullScreen ? 'none' : 'flex',
+            display: viewFullScreen ? 'none' : 'block',
           }"
-        />
+        >
+          <AppRouteHistory />
+        </div>
 
-        <main>
+        <main
+          :class="{
+            'view-full-screen': viewFullScreen,
+          }"
+        >
           <RouterView v-slot="{ Component }">
-            <Transition name="default" mode="out-in">
-              <component
-                v-if="!isRefreshView"
-                :is="Component"
-                :class="{
-                  'view-full-screen': viewFullScreen,
-                }"
-              />
+            <Transition :name="prevViewFullScreen || viewFullScreen ? '' : 'default'" mode="out-in">
+              <component v-if="!isRefreshView" :is="Component" />
             </Transition>
           </RouterView>
         </main>
@@ -316,16 +315,24 @@ watch(
 
 .main-con {
   flex: 1;
-  padding: 1rem;
   background: var(--bg-color);
   max-width: min(100vw, 100%);
 }
 
-.view-full-screen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+.route-history {
+  position: sticky;
+  top: var(--app-header-height);
+  z-index: 2;
+  margin: 1rem;
+  height: 3.6rem;
+}
+
+main {
+  padding: 1rem;
+
+  &.view-full-screen {
+    padding: 0;
+  }
 }
 
 .version-info {

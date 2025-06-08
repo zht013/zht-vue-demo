@@ -104,3 +104,8 @@ export enum HttpStatusCode {
   NotExtended = 510,
   NetworkAuthenticationRequired = 511,
 }
+
+export interface SnapEvent extends Event {
+  snapTargetInline: HTMLElement | null
+  snapTargetBlock: HTMLElement | null
+}

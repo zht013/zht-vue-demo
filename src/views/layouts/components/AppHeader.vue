@@ -77,7 +77,7 @@ const { menus } = useMenuStore()
   align-items: center;
   padding: 0.4rem 1rem 0.4rem 1.4rem;
   border-bottom: 1px solid var(--border-color);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(5px);
   background-image: radial-gradient(transparent 0.1rem, var(--bg-color) 0.1rem);
   background-size: 0.4rem 0.4rem;
 }
