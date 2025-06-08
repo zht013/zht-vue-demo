@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.5.0](https://github.com/zht013/zht-vue-demo/compare/v1.4.2...v1.5.0) (2025-06-08)
+
+
+### Features
+
+* add parallax demo page ([d873dbb](https://github.com/zht013/zht-vue-demo/commit/d873dbb8167e997d31d9f965f15862441c626171))
+* add settings and full screen structure ([d78bb71](https://github.com/zht013/zht-vue-demo/commit/d78bb713a356e89b322409be72683ea7b663f117))
+
+
+### Bug Fixes
+
+* change workbox api cache ([8a20252](https://github.com/zht013/zht-vue-demo/commit/8a2025254c280efd7cca2b1351c7563aec1f4b3b))
+* fix github api url issue ([85a0708](https://github.com/zht013/zht-vue-demo/commit/85a070837235389eda7f7df3e1d7f890aa94bfab))
+* fix ofetch retry and github api url issue ([cbdb6c3](https://github.com/zht013/zht-vue-demo/commit/cbdb6c38db4d4ad5de88994e51b87d6762c9922f))
+* fix serverless api compatible ([a243d68](https://github.com/zht013/zht-vue-demo/commit/a243d68c3fb2dde14d363ece6a8521f06ef83c28))
+* fix serverless api module is not correct ([9ccf11c](https://github.com/zht013/zht-vue-demo/commit/9ccf11c3adfa3b2b8daf30c591bee86f5a2298bd))
+* fix serverless function compatible issue ([3d584c9](https://github.com/zht013/zht-vue-demo/commit/3d584c93371b97b16be35950bd699e4f6cf89fdb))
+* fix vercel serverless function error ReferenceError: exports is not defined in ES module scope ([9219722](https://github.com/zht013/zht-vue-demo/commit/92197225cd4fe291caa5bf86beaa2b6966574d68))
+* fix workbox api cache not matched ([581d02b](https://github.com/zht013/zht-vue-demo/commit/581d02b81e9778101c61ea2761bc255ec95d8ac8))
+* pwa api cache ([5a9d48a](https://github.com/zht013/zht-vue-demo/commit/5a9d48adbd380e1eb320928cdc1b5edab8cdf9fd))
+* remove dotenv, because production serverless function  error with it ([0587723](https://github.com/zht013/zht-vue-demo/commit/0587723f58d2227bc06cbbc6c231b01b6559f94e))
+
 ## [1.4.2](https://github.com/zht013/zht-vue-demo/compare/v1.4.1...v1.4.2) (2025-05-16)
 
 
