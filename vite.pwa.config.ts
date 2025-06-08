@@ -42,7 +42,7 @@ export default function (isDev: boolean): Plugin[] {
       theme_color: '#ffffff',
     },
     injectManifest: {
-      globPatterns: ['/*.{js,css,html,svg,png,ico}', '/assets/index-*.{js,css}'],
+      globPatterns: ['*.{js,css,html,svg,png,ico}', 'assets/index-*.{js,css}'],
       // additionalManifestEntries: [
       //   {
       //     url: '/index.html',
