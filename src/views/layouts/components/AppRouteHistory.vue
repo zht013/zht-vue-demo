@@ -224,7 +224,13 @@ const dropdownOptions = computed<DropdownOption[]>(() => [
 
     <div ref="tabsWrapperRef" class="tabs-wrapper scroll-hide">
       <!-- 选中状态背景 -->
-      <div ref="slideBlockElementRef" class="slide-block"></div>
+      <div
+        ref="slideBlockElementRef"
+        class="slide-block"
+        :style="{
+          '--bg-color': themeVars.hoverColor,
+        }"
+      ></div>
 
       <!-- tab 标签 -->
       <div
@@ -313,7 +319,7 @@ const dropdownOptions = computed<DropdownOption[]>(() => [
   top: 0;
   left: 0;
   bottom: 0;
-  background: rgb(130, 130, 130, 0.1);
+  background: var(--bg-color);
   transition-property: left, width;
   transition-duration: 0.4s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
