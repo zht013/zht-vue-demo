@@ -33,6 +33,7 @@ export default defineConfig(
         __APP_VERSION__: JSON.stringify(version),
         __GIT_HASH__: JSON.stringify(gitHash),
         __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+        'process.env': env,
       },
       plugins: [
         vue(),
