@@ -12,10 +12,17 @@ import Icons from './vite.icons.config'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import VitePWA from './vite.pwa.config'
 import { version } from './package.json'
-import { execSync } from 'child_process'
+import { execSync } from 'node:child_process'
 
-// 获取git最新提交hash
-const gitHash = execSync('git rev-parse --short HEAD').toString().trim()
+function getCommitHash() {
+  if (process.env.COMMIT_HASH) return process.env.COMMIT_HASH
+
+  try {
+    return execSync('git rev-parse --short HEAD').toString().trim()
+  } catch {
+    return 'unknown'
+  }
+}
 
 // https://vite.dev/config/
 export default defineConfig(
@@ -31,7 +38,7 @@ export default defineConfig(
       base: env.VITE_BASE_URL,
       define: {
         __APP_VERSION__: JSON.stringify(version),
-        __GIT_HASH__: JSON.stringify(gitHash),
+        __GIT_COMMIT_HASH__: JSON.stringify(getCommitHash()),
         __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
         'process.env': env,
       },
