@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const version = __APP_VERSION__
-const gitHash = __GIT_COMMIT_HASH__
+const gitHash = __GIT_COMMIT_SHA__
 const buildTime = new Date(__BUILD_TIME__).toLocaleString()
 const env = import.meta.env.MODE
 </script>
