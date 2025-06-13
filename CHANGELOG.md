@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.5.1](https://github.com/zht013/zht-vue-demo/compare/v1.5.0...v1.5.1) (2025-06-13)
+
+
+### Bug Fixes
+
+* fix can not get commit sha ([39458d0](https://github.com/zht013/zht-vue-demo/commit/39458d0c7b2da2b61bd0b5ef088951ac1cf7c365))
+* fix pwa precache pattern issue ([65a5346](https://github.com/zht013/zht-vue-demo/commit/65a53463bc96e9ca75a796a7e754f173e346b117))
+* fix railway can not run git command ([712759e](https://github.com/zht013/zht-vue-demo/commit/712759e485a827f76baba16ed759d701308d0d58))
+* fix railway deploy issue ([47a1591](https://github.com/zht013/zht-vue-demo/commit/47a15910fb9f92cc9f2c74d3f042a8f6c0192803))
+* fix railway deploy issue ([34c5165](https://github.com/zht013/zht-vue-demo/commit/34c5165623d00960687278b21325d0378d9ddb73))
+* fix theme style ([4823157](https://github.com/zht013/zht-vue-demo/commit/482315711c0b3498202b802cb1b38be7bd8f627e))
+
 ## [1.5.0](https://github.com/zht013/zht-vue-demo/compare/v1.4.2...v1.5.0) (2025-06-08)
 
 
