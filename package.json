@@ -24,6 +24,7 @@
     "release": "release-please release-pr --repo-url=zht013/zht-vue-demo --token=$AUTO_VERSION_TOKEN"
   },
   "dependencies": {
+    "@vercel/node": "^5.2.2",
     "@vueuse/core": "^13.1.0",
     "echarts": "^5.6.0",
     "ofetch": "^1.4.1",
