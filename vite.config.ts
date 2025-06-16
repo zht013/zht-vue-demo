@@ -14,8 +14,8 @@ import VitePWA from './vite.pwa.config'
 import { version } from './package.json'
 import { execSync } from 'node:child_process'
 
-function getCommitSha() {
-  if (process.env.RAILWAY_GIT_COMMIT_SHA_SHORT) return process.env.RAILWAY_GIT_COMMIT_SHA_SHORT
+function getCommitHash() {
+  if (process.env.GIT_COMMIT_HASH) return process.env.GIT_COMMIT_HASH
 
   try {
     return execSync('git rev-parse --short HEAD').toString().trim()
@@ -38,7 +38,7 @@ export default defineConfig(
       base: env.VITE_BASE_URL,
       define: {
         __APP_VERSION__: JSON.stringify(version),
-        __GIT_COMMIT_SHA__: JSON.stringify(getCommitSha()),
+        __GIT_COMMIT_HASH__: JSON.stringify(getCommitHash()),
         __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
         'process.env': env,
       },

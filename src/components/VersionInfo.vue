@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const version = __APP_VERSION__
-const gitHash = __GIT_COMMIT_SHA__
+const gitCommitHash = __GIT_COMMIT_HASH__
 const buildTime = new Date(__BUILD_TIME__).toLocaleString()
 const env = import.meta.env.MODE
 </script>
@@ -9,7 +9,7 @@ const env = import.meta.env.MODE
   <p>
     <span>{{ env }}</span>
     <span>v{{ version }}</span>
-    <span>{{ gitHash }}</span>
+    <span>{{ gitCommitHash }}</span>
     <span>{{ buildTime }}</span>
   </p>
 </template>
