@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.5.2](https://github.com/zht013/zht-vue-demo/compare/v1.5.1...v1.5.2) (2025-06-16)
+
+
+### Bug Fixes
+
+* remove debug info ([82bd5d2](https://github.com/zht013/zht-vue-demo/commit/82bd5d20314ae03f5344cf3b035f7b1228f17320))
+* set git commit sha ([7c1e267](https://github.com/zht013/zht-vue-demo/commit/7c1e26762f75bd42c818b714956a081aa650b56b))
+* test railway function ([e70f447](https://github.com/zht013/zht-vue-demo/commit/e70f447af82479e905dde79be9f3086b02135c20))
+* use github action to deploy to railway ([e5ff0ee](https://github.com/zht013/zht-vue-demo/commit/e5ff0ee3725c1c22beb8104d1419eb049de74d2c))
+
 ## [1.5.1](https://github.com/zht013/zht-vue-demo/compare/v1.5.0...v1.5.1) (2025-06-13)
 
 
