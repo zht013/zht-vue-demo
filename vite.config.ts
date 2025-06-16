@@ -15,7 +15,7 @@ import { version } from './package.json'
 import { execSync } from 'node:child_process'
 
 function getCommitHash() {
-  if (process.env.GIT_COMMIT_HASH) return process.env.GIT_COMMIT_HASH
+  if (process.env.RAILWAY_GIT_COMMIT_SHA) return process.env.RAILWAY_GIT_COMMIT_SHA.substring(0, 7)
 
   try {
     return execSync('git rev-parse --short HEAD').toString().trim()
@@ -40,8 +40,7 @@ export default defineConfig(
         __APP_VERSION__: JSON.stringify(version),
         __GIT_COMMIT_HASH__: JSON.stringify(getCommitHash()),
         __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
-        __ALL_ENV__: JSON.stringify(process.env),
-        'process.env': env,
+        // 'process.env': env,
       },
       plugins: [
         vue(),
