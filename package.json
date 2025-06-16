@@ -5,6 +5,9 @@
   "description": "A Vue 3 + Vite 4 + TypeScript + Pinia + Naive UI + Playwright + Vitest + ESLint + Prettier + Commitlint + Husky",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.14.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "run-s \"build-only {@}\" type-check --",

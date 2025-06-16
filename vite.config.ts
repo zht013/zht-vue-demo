@@ -34,14 +34,13 @@ export default defineConfig(
     const env = loadEnv(mode, process.cwd()) as unknown as ImportMetaEnv
     const isDev = mode === 'development'
 
-    console.log('000000000000000000000000000000', process.env)
-
     return {
       base: env.VITE_BASE_URL,
       define: {
         __APP_VERSION__: JSON.stringify(version),
         __GIT_COMMIT_HASH__: JSON.stringify(getCommitHash()),
         __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+        __ALL_ENV__: JSON.stringify(process.env),
         'process.env': env,
       },
       plugins: [
