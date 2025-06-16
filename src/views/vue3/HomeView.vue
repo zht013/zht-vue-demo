@@ -5,8 +5,6 @@ import { darkTheme } from 'naive-ui'
 
 const bus = useEventBus(EventKeys.themeChanged)
 
-console.log(import.meta.env)
-
 function test() {
   bus.emit(darkTheme)
 }
