@@ -40,7 +40,7 @@ export default defineConfig(
         __APP_VERSION__: JSON.stringify(version),
         __GIT_COMMIT_HASH__: JSON.stringify(getCommitHash()),
         __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
-        // 'process.env': env,
+        'process.env': env,
       },
       plugins: [
         vue(),
